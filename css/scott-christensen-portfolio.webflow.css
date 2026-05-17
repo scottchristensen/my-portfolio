@@ -221,7 +221,6 @@ figcaption {
 .navigation-link:hover {
   font-style: italic;
   text-decoration: none;
-  transform: scale(1.2);
 }
 
 .navigation-link:active {
@@ -331,6 +330,7 @@ figcaption {
 .button:hover {
   opacity: .8;
   transform: translate(0, -.125rem);
+  font-style: normal;
 }
 
 .button:active {
