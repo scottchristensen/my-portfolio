@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1300">
+  <rect width="1300" height="1300" fill="#1A1F2A"/>
+  <g fill="#FAFAFA" font-family="system-ui, -apple-system, Inter, sans-serif" text-anchor="middle">
+    <text x="650" y="600" font-size="120" font-weight="600" letter-spacing="-3">Mercury</text>
+    <text x="650" y="710" font-size="56" fill="#6B7280" font-weight="500">Case Study 2</text>
+    <text x="650" y="800" font-size="36" fill="#6B7280" font-weight="400">Placeholder — awaiting content</text>
+  </g>
+</svg>

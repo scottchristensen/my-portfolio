@@ -1,0 +1,41 @@
+{
+  "featured": [],
+  "grid": [
+    {
+      "slug": "mercury-project-1",
+      "title": "Mercury \u00b7 TBD 1",
+      "subtitle": "Placeholder \u2014 awaiting questionnaire",
+      "image": "images/work/mercury-project-1__placeholder.svg"
+    },
+    {
+      "slug": "mercury-project-2",
+      "title": "Mercury \u00b7 TBD 2",
+      "subtitle": "Placeholder \u2014 awaiting questionnaire",
+      "image": "images/work/mercury-project-2__placeholder.svg"
+    },
+    {
+      "slug": "h1-browser-extension",
+      "title": "H1 Extension",
+      "subtitle": "Validated, launched, iterated",
+      "image": "images/work/h1-browser-extension__grid__Grid-Image---H1-Extension.png"
+    },
+    {
+      "slug": "h1-doctor-profile",
+      "title": "H1 Profile",
+      "subtitle": "Redesigning to improve CSAT",
+      "image": "images/work/h1-doctor-profile__grid__Grid-Image---H1-Extension.png"
+    },
+    {
+      "slug": "mystery-onboarding",
+      "title": "Mystery Onboarding",
+      "subtitle": "Data-driven new user flow",
+      "image": "images/work/mystery-onboarding__grid__Grid-Image---Mystery-Onboarding.png"
+    },
+    {
+      "slug": "egencia-self-service",
+      "title": "Expedia Self-Service",
+      "subtitle": "Increasing net revenue by rethinking help",
+      "image": "images/work/egencia-self-service__grid__Grid-Image---Egencia-Self-Service.png"
+    }
+  ]
+}
