@@ -223,6 +223,10 @@ figcaption {
   text-decoration: none;
 }
 
+.social-links-wrapper .navigation-link:hover {
+  transform: scale(1.2);
+}
+
 .navigation-link:active {
   text-transform: capitalize;
   transform: scale(.9)skew(0deg);
