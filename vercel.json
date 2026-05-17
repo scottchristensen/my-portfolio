@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        { "type": "host", "value": "www.scottchristensen.design" }
+      ],
+      "destination": "https://scottchristensen.design/:path*",
+      "permanent": true
+    }
+  ]
+}
