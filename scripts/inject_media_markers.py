@@ -163,9 +163,6 @@ INSERTIONS = [
     ("mercury-viral-upsell", "My Process",
      "The email becomes the fourth nudge in the drip, not a dead end.</p>",
      "[[MEDIA:image|Success transactional email redesign]]"),
-    ("mercury-viral-upsell", "My Process",
-     "We tested this hunch and confirmed it.</li></ul>",
-     "[[MEDIA:image|Explored variations (value-prop rails, social proof)]]"),
 ]
 
 
