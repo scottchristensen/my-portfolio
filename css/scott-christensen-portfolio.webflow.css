@@ -1799,7 +1799,7 @@ figcaption {
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   h1 {
     font-size: 3.5rem;
   }
@@ -2996,7 +2996,7 @@ figcaption {
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   #w-node-_50457d26-3dd1-d039-6b91-26c2f032d599-aa9cf83d {
     grid-area: span 1 / span 6 / span 1 / span 6;
   }
@@ -3178,4 +3178,9 @@ figcaption {
   font-weight: 500;
   font-style: normal;
   font-display: swap;
+}
+/* Match Webflow's `data-collapse=small` hamburger threshold to 768 (default is 767). */
+@media screen and (max-width: 768px) {
+  .w-nav[data-collapse='small'] .w-nav-menu { display: none; }
+  .w-nav[data-collapse='small'] .w-nav-button { display: block; }
 }
