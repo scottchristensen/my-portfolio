@@ -16,6 +16,20 @@ def img(path: str) -> str:
     return urllib.parse.quote(path, safe="/")
 
 
+def _png_dimensions(path):
+    """Return (width, height) for a PNG file, or None if it can't be read.
+    Reads the IHDR chunk directly so we don't need Pillow."""
+    import struct
+    try:
+        with open(path, "rb") as f:
+            header = f.read(24)
+        if len(header) < 24 or header[:8] != b"\x89PNG\r\n\x1a\n":
+            return None
+        return struct.unpack(">II", header[16:24])
+    except (OSError, struct.error):
+        return None
+
+
 # Resolved media: when a marker's label appears here, the build script renders
 # the real image/embed instead of the dashed placeholder card. Add entries as
 # screenshots and embeds come in.
@@ -522,8 +536,15 @@ def build_page(row: dict, slug_to_title: dict) -> str:
     full_bleed_img = soup.select_one("img.project-image-full-bleed")
     if full_bleed_img:
         if row["Full bleed image"]:
-            full_bleed_img["src"] = row["Full bleed image"]
+            local_path = row["Full bleed image"]
+            full_bleed_img["src"] = local_path
             full_bleed_img["alt"] = f"{title} (full bleed)"
+            # Above-the-fold: eager-load + high priority + explicit dims for no CLS.
+            full_bleed_img["loading"] = "eager"
+            full_bleed_img["fetchpriority"] = "high"
+            dims = _png_dimensions(ROOT / local_path)
+            if dims:
+                full_bleed_img["width"], full_bleed_img["height"] = str(dims[0]), str(dims[1])
             # White phone mockup on white bg blends in; give it a subtle bottom edge.
             if row["Slug"] == "mercury-focused-funding":
                 full_bleed_img["style"] = "border-bottom: 1px solid #e5e5e5;"
@@ -578,7 +599,7 @@ def build_page(row: dict, slug_to_title: dict) -> str:
     if next_slug:
         next_link = soup.select_one("a.is-next-project-link")
         if next_link:
-            next_link["href"] = f"../{next_slug}/"
+            next_link["href"] = f"/work/{next_slug}/"
             next_h3 = next_link.select_one("h3.heading-xlarge.w-dyn-bind-empty")
             if next_h3:
                 next_h3.string = slug_to_title.get(next_slug, next_slug)

@@ -7,7 +7,7 @@
     item.innerHTML = `
       <a href="/work/${project.slug}" class="project-thumbnail-link w-inline-block">
         <div class="project-thumbnail-image-wrapper">
-          <img src="${project.image}" loading="lazy" alt="${project.title}" class="project-thumbnail-image">
+          <img src="${project.image}" loading="lazy" alt="${project.title}" width="1331" height="839" class="project-thumbnail-image">
         </div>
         <div class="project-title-div">
           <h3 class="heading-small">${project.title}</h3>
