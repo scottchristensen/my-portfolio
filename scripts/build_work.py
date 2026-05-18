@@ -271,6 +271,50 @@ PLACEHOLDER_STYLE = """
 }
 .w-richtext figure.rich-media-figure.is-iframe-landscape iframe { aspect-ratio: 16 / 9; height: auto; }
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
+
+/* Loading state for lazy-loaded Figma embeds: while the iframe defers fetch,
+   the figure's own background + pseudo-elements act as a "Figma embed loading"
+   poster. Once the iframe paints its content it covers everything. */
+.w-richtext figure.rich-media-figure.is-iframe-landscape,
+.w-richtext figure.rich-media-figure.is-iframe-square {
+  position: relative;
+  background-color: #F5F5F5;
+}
+.w-richtext figure.rich-media-figure.is-iframe-landscape iframe,
+.w-richtext figure.rich-media-figure.is-iframe-square iframe {
+  position: relative;
+  background: transparent;
+  z-index: 1;
+}
+.w-richtext figure.rich-media-figure.is-iframe-landscape::before,
+.w-richtext figure.rich-media-figure.is-iframe-square::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: -2rem 0 0 -0.75rem;
+  border: 2px solid #D5D5D5;
+  border-top-color: #666;
+  border-radius: 50%;
+  animation: figma-loading-spin 0.8s linear infinite;
+  z-index: 0;
+}
+.w-richtext figure.rich-media-figure.is-iframe-landscape::after,
+.w-richtext figure.rich-media-figure.is-iframe-square::after {
+  content: "Figma embed loading";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0.5rem);
+  color: #666;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  z-index: 0;
+}
+@keyframes figma-loading-spin { to { transform: rotate(360deg); } }
 .w-richtext figure.rich-media-figure.is-responsive-video > div { width: 100%; }
 .w-richtext figure.rich-media-figure.is-image-stack { display: flex; flex-direction: column; gap: 1.5rem; }
 /* Extra-wide variant: break past the .container-large 80rem cap and span the

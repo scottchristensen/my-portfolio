@@ -244,3 +244,18 @@
     margin-top: 0;    /* override the prior margin-top:auto */
   }
 }
+
+/* Figma embed loading state — dark variant */
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape,
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square {
+  background-color: #1F2225;
+}
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape::before,
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square::before {
+  border-color: #3A3D40;
+  border-top-color: #C8CCD0;
+}
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape::after,
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square::after {
+  color: #C8CCD0;
+}
