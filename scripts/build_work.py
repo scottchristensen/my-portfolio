@@ -37,6 +37,8 @@ FIGMA_MERCURY_FF_FINAL = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-
 
 FIGMA_MERCURY_FF_THRESHOLD = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-80225&embed-host=share" allowfullscreen></iframe>"""
 
+FIGMA_MERCURY_VIRAL_SUCCESS_ALTS = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/knLHsLs6kfXGzX05kcXVz6/Mini-Projects-2025?node-id=63-208284&embed-host=share" allowfullscreen></iframe>"""
+
 MEDIA_RESOLUTIONS = {
     # ---- Mystery Onboarding ----
     "Mystery promo": {"embed": VIMEO_MYSTERY, "responsive": True},
@@ -105,6 +107,19 @@ MEDIA_RESOLUTIONS = {
     "Funding-amount threshold multivariant": {
         "embed": FIGMA_MERCURY_FF_THRESHOLD, "aspect": "landscape",
         "caption": "Fast-follow threshold multivariant test (+$1,500 median deposit)",
+    },
+    # ---- Mercury Viral Upsell ----
+    "Email value-prop refresh (before and after)": {
+        "src": img("images/work/Virality case study - inline - email.png"),
+        "caption": "Notification email — value-prop intro added",
+    },
+    "Landing page rebrand and mobile-responsive refresh": {
+        "src": img("images/work/Virality case study - inline - form.png"),
+        "caption": "Landing page — rebrand, refreshed container, mobile-responsive",
+    },
+    "Success screen alternative explorations": {
+        "embed": FIGMA_MERCURY_VIRAL_SUCCESS_ALTS, "aspect": "landscape",
+        "caption": "Alternatives explored via internal feedback + lightweight user testing",
     },
 }
 

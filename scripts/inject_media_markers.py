@@ -155,6 +155,9 @@ INSERTIONS = [
      "treating the interaction as a one-off bank-info dropoff.</p>",
      "[[MEDIA:image|Success screen redesign with value props]]"),
     ("mercury-viral-upsell", "My Process",
+     "before landing on the current implementation.</p>",
+     "[[MEDIA:figma|Success screen alternative explorations]]"),
+    ("mercury-viral-upsell", "My Process",
      "a takeover felt aggressive on top of it.</li></ul>",
      "[[MEDIA:image|Explored variations (value-prop rails, social proof, modal takeover)]]"),
 ]
