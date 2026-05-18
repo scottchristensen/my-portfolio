@@ -287,21 +287,23 @@ PLACEHOLDER_STYLE = """
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
 
 /* Loading state for lazy-loaded Figma embeds: while the iframe defers fetch,
-   the figure's own background + pseudo-elements act as a "Figma embed loading"
-   poster. Once the iframe paints its content it covers everything. */
-.w-richtext figure.rich-media-figure.is-iframe-landscape,
-.w-richtext figure.rich-media-figure.is-iframe-square {
+   the embed wrapper's background + pseudo-elements act as a "Figma embed loading"
+   poster. Once the iframe paints its content it covers everything. The wrapper
+   keeps the bg + spinner scoped to the embed area so the figcaption stays
+   transparent. */
+.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed,
+.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed {
   position: relative;
   background-color: #F5F5F5;
 }
-.w-richtext figure.rich-media-figure.is-iframe-landscape iframe,
-.w-richtext figure.rich-media-figure.is-iframe-square iframe {
+.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed iframe,
+.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed iframe {
   position: relative;
   background: transparent;
   z-index: 1;
 }
-.w-richtext figure.rich-media-figure.is-iframe-landscape::before,
-.w-richtext figure.rich-media-figure.is-iframe-square::before {
+.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::before,
+.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -315,8 +317,8 @@ PLACEHOLDER_STYLE = """
   animation: figma-loading-spin 0.8s linear infinite;
   z-index: 0;
 }
-.w-richtext figure.rich-media-figure.is-iframe-landscape::after,
-.w-richtext figure.rich-media-figure.is-iframe-square::after {
+.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::after,
+.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::after {
   content: "Figma embed loading";
   position: absolute;
   top: 50%;
@@ -380,7 +382,13 @@ def render_media_marker(match: "re.Match") -> str:
                 classes.append("is-iframe-square")
             if resolution.get("width") == "extra-wide":
                 classes.append("is-extra-wide")
-            return f'<figure class="{" ".join(classes)}">{resolution["embed"]}<figcaption>{caption}</figcaption></figure>'
+            # Wrap the iframe so the loading-state background/spinner sit only
+            # behind the embed, not under the figcaption.
+            return (
+                f'<figure class="{" ".join(classes)}">'
+                f'<div class="rich-media-figure__embed">{resolution["embed"]}</div>'
+                f'<figcaption>{caption}</figcaption></figure>'
+            )
 
     # Fall through; still unresolved, render the dashed placeholder.
     icon = TYPE_ICONS.get(mtype, "📎")

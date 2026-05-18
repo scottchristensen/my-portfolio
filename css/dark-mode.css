@@ -246,16 +246,16 @@
 }
 
 /* Figma embed loading state — dark variant */
-.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape,
-.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square {
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed,
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed {
   background-color: #1F2225;
 }
-.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape::before,
-.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square::before {
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::before,
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::before {
   border-color: #3A3D40;
   border-top-color: #C8CCD0;
 }
-.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape::after,
-.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square::after {
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::after,
+.theme-dark .w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::after {
   color: #C8CCD0;
 }
