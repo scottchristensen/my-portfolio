@@ -158,6 +158,9 @@ INSERTIONS = [
      "before landing on the current implementation.</p>",
      "[[MEDIA:figma|Success screen alternative explorations]]"),
     ("mercury-viral-upsell", "My Process",
+     "The email becomes the fourth nudge in the drip, not a dead end.</p>",
+     "[[MEDIA:image|Success transactional email redesign]]"),
+    ("mercury-viral-upsell", "My Process",
      "a takeover felt aggressive on top of it.</li></ul>",
      "[[MEDIA:image|Explored variations (value-prop rails, social proof, modal takeover)]]"),
 ]

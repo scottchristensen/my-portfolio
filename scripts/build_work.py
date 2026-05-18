@@ -121,6 +121,14 @@ MEDIA_RESOLUTIONS = {
         "embed": FIGMA_MERCURY_VIRAL_SUCCESS_ALTS, "aspect": "landscape",
         "caption": "Alternatives explored via internal feedback + lightweight user testing",
     },
+    "Success screen redesign with value props": {
+        "src": img("images/work/Virality case study - inline - success.png"),
+        "caption": "Success screen — restated brand, clearer hierarchy, surfaced value props",
+    },
+    "Success transactional email redesign": {
+        "src": img("images/work/Virality case study - inline - success transactional email.png"),
+        "caption": "Confirmation email — prominent primary CTA + secondary demo.mercury.com action",
+    },
 }
 
 ROOT = Path(__file__).resolve().parent.parent
