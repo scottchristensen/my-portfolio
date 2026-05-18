@@ -1298,6 +1298,7 @@ figcaption {
 }
 
 .button-wrapper {
+  gap: 0.4rem;
   display: flex;
 }
 
