@@ -82,12 +82,8 @@
       if (menuBtn) container.insertBefore(btn, menuBtn);
       else container.appendChild(btn);
     }
-    // Mobile: at the bottom of the slide-out .nav-menu (after links + social),
-    // not mixed into the navigation-grid with the primary nav labels.
-    var navMenu = document.querySelector('.nav-menu');
-    if (navMenu && !navMenu.querySelector('.theme-toggle--mobile')) {
-      navMenu.appendChild(buildButton('mobile'));
-    }
+    // Mobile: no manual toggle in the slide-out menu — the pre-paint snippet
+    // in <head> already honors the OS dark/light preference automatically.
   }
 
   if (document.readyState === 'loading') {
