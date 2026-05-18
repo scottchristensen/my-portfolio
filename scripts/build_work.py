@@ -31,6 +31,12 @@ FIGMA_H1_TOFU = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100
 
 FIGMA_H1_LANDING = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F9ugshiThjIteu2kGiE02dd%2F%25F0%259F%25A7%25AD-H1-Explorer%3Fnode-id%3D122%253A89340%26t%3Dkw7RGb4D8oDm4Erm-1" allowfullscreen></iframe>"""
 
+FIGMA_MERCURY_FF_MULTIVARIANT = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-69245&embed-host=share" allowfullscreen></iframe>"""
+
+FIGMA_MERCURY_FF_FINAL = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/proto/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2-46296&p=f&viewport=-96%2C-18%2C0.19&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2%3A46296&page-id=0%3A1&embed-host=share" allowfullscreen></iframe>"""
+
+FIGMA_MERCURY_FF_THRESHOLD = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-80225&embed-host=share" allowfullscreen></iframe>"""
+
 MEDIA_RESOLUTIONS = {
     # ---- Mystery Onboarding ----
     "Mystery promo": {"embed": VIMEO_MYSTERY, "responsive": True},
@@ -86,6 +92,20 @@ MEDIA_RESOLUTIONS = {
     "Option 3 — Simple": {"src": img("images/work/Egencia SS Option 3.png")},
     "Option 3 launch — calls +5.9%": {"src": img("images/work/Egencia SS - option 3 results.png")},
     "Variant C results — calls −2.8%": {"src": img("images/work/Egencia SS - option 3 variant C results.png")},
+    # ---- Mercury Focused Funding ----
+    "Focused Funding — v1 initial flow": None,  # No screenshot yet — falls back to placeholder card
+    "Multivariant test — control vs. 2 funding methods vs. 2 methods + invoicing": {
+        "embed": FIGMA_MERCURY_FF_MULTIVARIANT, "aspect": "landscape",
+        "caption": "Multivariant: control vs. 2 funding methods vs. 2 methods + invoicing",
+    },
+    "Final shipped prototype (clickable)": {
+        "embed": FIGMA_MERCURY_FF_FINAL, "aspect": "landscape",
+        "caption": "Final shipped prototype — click through the flow",
+    },
+    "Funding-amount threshold multivariant": {
+        "embed": FIGMA_MERCURY_FF_THRESHOLD, "aspect": "landscape",
+        "caption": "Fast-follow threshold multivariant test (+$1,500 median deposit)",
+    },
 }
 
 ROOT = Path(__file__).resolve().parent.parent

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1300">
+  <rect width="1300" height="1300" fill="#0F1115"/>
+  <g fill="#FAFAFA" font-family="system-ui, -apple-system, Inter, sans-serif" text-anchor="middle">
+    <text x="650" y="540" font-size="68" font-weight="500" letter-spacing="2" fill="#6B7280">MERCURY</text>
+    <text x="650" y="700" font-size="120" font-weight="600" letter-spacing="-3">Focused</text>
+    <text x="650" y="830" font-size="120" font-weight="600" letter-spacing="-3">Funding</text>
+    <text x="650" y="940" font-size="38" fill="#6B7280" font-weight="400">+4% Day 30 deposit rate · $1.3M ARR</text>
+  </g>
+</svg>
