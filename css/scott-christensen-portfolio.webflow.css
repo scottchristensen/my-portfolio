@@ -2154,8 +2154,8 @@ figcaption {
   }
 
   .page-padding {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
 }
@@ -2217,8 +2217,8 @@ figcaption {
 
   .collection-item {
     width: 100vw;
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
   }
 
   .collection-item.is-2-col, .collection-item.is-full-bleed {
@@ -2236,8 +2236,8 @@ figcaption {
 
   .work-collection_wrapper {
     width: 100vw;
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
   }
 
   .interests-layout {
@@ -2245,8 +2245,8 @@ figcaption {
   }
 
   .project-title-div {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .project-details {
@@ -2457,8 +2457,8 @@ figcaption {
   }
 
   .email-signup-container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .padding-vertical {
@@ -2474,8 +2474,8 @@ figcaption {
     border-radius: 0;
     width: 100vw;
     margin-bottom: -5rem;
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
   }
 
   .interest-image-wrapper {
@@ -2527,8 +2527,8 @@ figcaption {
 
   .nav-menu {
     width: 14rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .logo-wrapper.mobile-menu {
@@ -2537,8 +2537,8 @@ figcaption {
 
   .sample-work-wrapper {
     width: 100vw;
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
   }
 
   .sample-work-wrapper:hover {
