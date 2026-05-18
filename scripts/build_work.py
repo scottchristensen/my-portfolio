@@ -385,17 +385,24 @@ def build_page(row: dict, slug_to_title: dict) -> str:
             set_inner_html(overview_div, row["Overview"])
             strip_empty_class(overview_div)
 
-    # Button (text + href)
+    # Button (text + href + arrow direction)
     button = soup.select_one(".project-details-container a.button")
     if button:
-        button["href"] = row["Button link"] or "#"
-        if row["Button link"] and row["Button link"].startswith("http"):
+        link = row["Button link"] or "#"
+        button["href"] = link
+        if link.startswith("http"):
             button["target"] = "_blank"
             button["rel"] = "noopener"
+        elif button.has_attr("target"):
+            del button["target"]
         btn_text_div = button.select_one(".button-wrapper > .w-dyn-bind-empty")
         if btn_text_div:
             btn_text_div.string = row["Button text"] or "Learn more"
             strip_empty_class(btn_text_div)
+        # Swap arrow direction for in-page anchor links
+        arrow_div = button.select_one(".button-wrapper > div:last-child")
+        if arrow_div and link.startswith("#"):
+            arrow_div.string = " ↓"
 
     # Role / Team / Duration (3 .project-details paragraphs inside .content-wrapper.is-project-details)
     details_wrapper = soup.select_one(".content-wrapper.is-project-details")
@@ -438,6 +445,9 @@ def build_page(row: dict, slug_to_title: dict) -> str:
     if bg and row["Background"]:
         set_inner_html(bg, row["Background"])
         strip_empty_class(bg)
+        bg_section = bg.find_parent("section")
+        if bg_section and not bg_section.get("id"):
+            bg_section["id"] = "background"
     elif bg:
         bg.find_parent("section").decompose()
 
