@@ -143,6 +143,20 @@ INSERTIONS = [
     ("mercury-focused-funding", "My Process",
      "Defaults are powerful; defaults <em>with a reason</em> are more powerful.</p>",
      "[[MEDIA:figma|Funding-amount threshold multivariant]]"),
+
+    # ------------------- Mercury Viral Upsell ---------------------
+    ("mercury-viral-upsell", "My Process",
+     "they know what they're walking into.</p>",
+     "[[MEDIA:image|Email value-prop refresh (before and after)]]"),
+    ("mercury-viral-upsell", "My Process",
+     "the legacy was desktop-first.</p>",
+     "[[MEDIA:image|Landing page rebrand and mobile-responsive refresh]]"),
+    ("mercury-viral-upsell", "My Process",
+     "treating the interaction as a one-off bank-info dropoff.</p>",
+     "[[MEDIA:image|Success screen redesign with value props]]"),
+    ("mercury-viral-upsell", "My Process",
+     "a takeover felt aggressive on top of it.</li></ul>",
+     "[[MEDIA:image|Explored variations (value-prop rails, social proof, modal takeover)]]"),
 ]
 
 
