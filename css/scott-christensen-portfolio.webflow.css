@@ -433,7 +433,7 @@ figcaption {
 .project-thumbnail-link:hover {
   opacity: 1;
   outline-offset: 16px;
-  outline: .0625rem solid var(--lightest-grey);
+  outline: .0625rem solid var(--light-grey);
   font-style: normal;
 }
 
