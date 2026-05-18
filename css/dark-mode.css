@@ -1,7 +1,34 @@
-/* Dark mode
-   Activated by JS toggling .theme-dark on <html>.
+/* Dark mode + small site-wide overrides.
+   Dark theme is activated by JS toggling .theme-dark on <html>.
    System preference is honored by default; localStorage override wins.
    Keep this file standalone so the Webflow exports can be re-run without losing it. */
+
+/* Tighter horizontal padding on tablet/mobile, applied site-wide so every
+   section matches the rhythm of the homepage Overview section. Webflow's
+   defaults are 5rem desktop and 2.5rem on small phones — too breathy on
+   narrow screens. These step down: 2rem → 1.75rem → 1.5rem. */
+@media screen and (max-width: 991px) {
+  .page-padding { padding-left: 2rem; padding-right: 2rem; }
+}
+@media screen and (max-width: 767px) {
+  .page-padding { padding-left: 1.75rem; padding-right: 1.75rem; }
+}
+@media screen and (max-width: 479px) {
+  .page-padding { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+/* The Work section wrapper had a -2rem horizontal break-out designed against
+   the old 2.5rem mobile page-padding. With the new tighter padding it now
+   overflows the viewport. Reset the break-out so tiles sit inside the
+   page-padding gutters at every breakpoint. */
+@media screen and (max-width: 479px) {
+  .work-collection_wrapper {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .project-title-div { padding-left: 0; padding-right: 0; }
+}
 
 :root.theme-dark {
   --white: #0f1011;
@@ -42,13 +69,29 @@
    pastel scene that clashes with the dark surface. Hide it in dark mode. */
 .theme-dark .about-image-wrapper { display: none; }
 
-/* Rich-text link underline (hardcoded #00000030 / #000) — invisible on dark. */
-.theme-dark .text-rich-text a { box-shadow: inset 0 -3px var(--lightest-grey); }
+/* Link underlines on dark need real contrast — the inherited light-mode
+   shade was #00000030 / #ffffff14 which barely reads. Use a strong dim
+   underline (--dark-grey, ~65% white) and flip to full --black on hover. */
+.theme-dark .text-style-link { box-shadow: inset 0 -3px 0 0 var(--dark-grey); }
+/* Keep the underline at the same y-position on hover — color change only. */
+.theme-dark .text-style-link:hover { box-shadow: inset 0 -3px 0 0 var(--black); }
+.theme-dark .text-rich-text a { box-shadow: inset 0 -3px var(--dark-grey); }
 .theme-dark .text-rich-text a:hover { box-shadow: inset 0 -3px var(--black); }
 
 /* Focus-visible outlines on links are hardcoded #000. */
 .theme-dark a:focus-visible,
 .theme-dark a[data-wf-focus-visible] { outline-color: var(--black); }
+
+/* Work-tile hover outline is hardcoded #000 — invisible on dark.
+   Flip to a bright accent so the tile clearly reads as targeted. */
+.theme-dark .project-thumbnail-link:hover {
+  outline-color: var(--black);
+}
+.theme-dark .project-thumbnail-link:focus-visible,
+.theme-dark .project-thumbnail-link[data-wf-focus-visible] {
+  outline: 2px solid var(--black);
+  outline-offset: 4px;
+}
 
 /* Interactive list-item hover state uses hardcoded #000 borders. */
 .theme-dark .list-item.is-interactive:hover {
@@ -106,10 +149,85 @@
 .theme-dark .theme-toggle .icon-sun { display: block; }
 .theme-dark .theme-toggle .icon-moon { display: none; }
 
-/* Place toggle inside .nav-container next to the menu button. */
-.nav-container .theme-toggle { flex: 0 0 auto; align-self: center; }
+/* Desktop: smaller circular frame than the base .theme-toggle, same icon size,
+   ghost (no fill) until hover inherits .theme-toggle:hover. */
+.theme-toggle--desktop {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: transparent;
+}
+.theme-toggle--desktop svg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
 
-@media (max-width: 767px) {
-  .theme-toggle { width: 2.5rem; height: 2.5rem; margin-left: .5rem; }
-  .theme-toggle svg { width: 1.25rem; height: 1.25rem; }
+/* Mobile variant: slide switch pinned to the bottom of the slide-out .nav-menu.
+   Hidden until the nav collapses (Webflow's "small" breakpoint is 991px). */
+.theme-toggle--mobile {
+  display: none;
+  align-items: center;
+  gap: .75rem;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  cursor: pointer;
+  color: var(--black);
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: .015625rem;
+  line-height: 1;
+}
+.theme-toggle--mobile:hover { background: transparent; color: var(--black); transform: none; }
+.theme-toggle--mobile:focus-visible { outline: 2px solid var(--black); outline-offset: 4px; border-radius: 4px; }
+.theme-toggle--mobile .theme-toggle__label { white-space: nowrap; }
+.theme-toggle--mobile .theme-toggle__track {
+  position: relative;
+  display: inline-block;
+  width: 2.75rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background-color: var(--lightest-grey);
+  border: 1.5px solid var(--black);
+  transition: background-color .2s ease;
+  flex: 0 0 auto;
+}
+.theme-toggle--mobile .theme-toggle__thumb {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: calc(1.5rem - 8px);
+  height: calc(1.5rem - 8px);
+  border-radius: 50%;
+  background-color: var(--black);
+  transform: translateY(-50%);
+  transition: transform .2s ease, background-color .2s ease;
+}
+/* Switched-on state: thumb slides right; track flips to filled. */
+.theme-dark .theme-toggle--mobile .theme-toggle__track { background-color: var(--black); }
+.theme-dark .theme-toggle--mobile .theme-toggle__thumb {
+  background-color: var(--white);
+  transform: translate(calc(2.75rem - 1.5rem), -50%);
+}
+
+@media (max-width: 991px) {
+  .nav-container .theme-toggle--desktop { display: none; }
+  /* Stack menu from the top so the toggle can sit on the bottom via margin-top: auto */
+  .nav-menu {
+    justify-content: flex-start;
+  }
+  .nav-menu .logo-wrapper {
+    flex: 0 0 auto;
+  }
+  .nav-menu .theme-toggle--mobile {
+    display: inline-flex;
+    margin-top: auto;
+    align-self: flex-start;
+  }
 }

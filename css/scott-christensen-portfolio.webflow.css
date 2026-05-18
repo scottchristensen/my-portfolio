@@ -218,6 +218,10 @@ figcaption {
   display: flex;
 }
 
+.navigation-link h3.text-size-regular.text-weight-medium {
+  float: left;
+}
+
 .navigation-link:hover {
   font-style: italic;
   text-decoration: none;
@@ -2198,6 +2202,12 @@ figcaption {
 
   .section.padding-0, .navigation-link.w--current {
     display: block;
+  }
+
+  .navigation-link.w--current::after {
+    content: "";
+    display: table;
+    clear: both;
   }
 
   .navigation-grid {

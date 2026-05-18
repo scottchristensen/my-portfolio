@@ -114,7 +114,7 @@ main:focus-visible {
 }
 </style>
     </div>
-    <div data-animation="over-left" class="section-nav is-multi-colored w-nav" data-easing2="ease" data-easing="ease" data-collapse="tiny" data-w-id="69118560-d0bc-15fc-bbf8-b8fe5f6535b5" role="banner" data-duration="400" data-doc-height="1">
+    <div data-animation="over-left" class="section-nav is-multi-colored w-nav" data-easing2="ease" data-easing="ease" data-collapse="small" data-w-id="69118560-d0bc-15fc-bbf8-b8fe5f6535b5" role="banner" data-duration="400" data-doc-height="1">
       <div class="page-padding">
         <div class="nav-container">
           <a id="skip-link" href="#" class="button small skip-to-main w-button">Skip to content</a>

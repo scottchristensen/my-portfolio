@@ -36,6 +36,37 @@
   appearance: none;
 }
 </style>
+  <style>
+/* Homepage #overview — tighter gutters + section rhythm on small viewports */
+@media screen and (max-width: 991px) {
+  #overview .page-padding {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #overview.section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  #overview .page-padding {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  #overview.section {
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+  #overview .page-padding {
+    padding-left: 1.125rem;
+    padding-right: 1.125rem;
+  }
+}
+</style>
   <script async="" src="https://tag.clearbitscripts.com/v1/pk_66cef9de0fa27f2f2f860c4bad538135/tags.js" referrerpolicy="strict-origin-when-cross-origin"></script>
 </head>
 <body>
@@ -116,7 +147,7 @@ main:focus-visible {
 }
 </style>
     </div>
-    <div data-animation="over-left" class="section-nav is-multi-colored w-nav" data-easing2="ease" data-easing="ease" data-collapse="tiny" data-w-id="69118560-d0bc-15fc-bbf8-b8fe5f6535b5" role="banner" data-duration="400" data-doc-height="1">
+    <div data-animation="over-left" class="section-nav is-multi-colored w-nav" data-easing2="ease" data-easing="ease" data-collapse="small" data-w-id="69118560-d0bc-15fc-bbf8-b8fe5f6535b5" role="banner" data-duration="400" data-doc-height="1">
       <div class="page-padding">
         <div class="nav-container">
           <a id="skip-link" href="#" class="button small skip-to-main w-button">Skip to content</a>
@@ -206,7 +237,7 @@ main:focus-visible {
       <section id="overview" class="section with-divider">
         <div class="page-padding">
           <div style="opacity:0" class="container-large">
-            <div id="w-node-a95b2831-2b6f-c134-dcd4-e94e0cada7a8-aa9cf83d" class="content-wrapper align-center text-align-center max-width-large">
+            <div id="w-node-a95b2831-2b6f-c134-dcd4-e94e0cada7a8-aa9cf83d" class="content-wrapper align-center max-width-large">
               <p class="text-size-large">Currently, I&#x27;m building <a href="https://sendsight.ai" target="_blank" class="text-style-link">SendSight</a> to automate lifecycle journey insights for growth teams.</p>
               <p class="text-size-large">Alongside that, I take on one fractional design engagement at a time.</p>
               <p class="text-size-large margin-0">Previously, lead growth designer at <a href="https://mercury.com/" target="_blank" class="text-style-link">Mercury</a>, director of design at <a href="https://www.h1.co/" target="_blank" class="text-style-link">H1</a>, and growth design manager at <a href="https://www.expedia.com/" target="_blank" class="text-style-link">Expedia</a>.</p>
