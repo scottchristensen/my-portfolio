@@ -116,6 +116,11 @@ JSON_PATH = ROOT / "data" / "work.json"
 
 # Asset folders referenced by relative paths in the template.
 ASSET_PREFIXES = ("css/", "js/", "images/", "documents/")
+# Sibling top-level HTML files that the nav and footer link to. From a generated
+# case study page at work/<slug>/index.html, these need a "../../" prefix.
+SIBLING_PAGES = ("advisory.html", "coaching.html", "content.html",
+                 "styleguide.html", "401.html", "404.html",
+                 "detail_writing.html", "detail_category.html")
 
 # Inline [[MEDIA:type|label|url?]] markers are inserted into the CSV's rich-text fields
 # via scripts/inject_media_markers.py. They render as visible placeholder cards where
@@ -291,15 +296,18 @@ def render_media_marker(match: "re.Match") -> str:
 
 
 def fix_asset_paths(soup: BeautifulSoup) -> None:
-    """Rewrite relative asset paths to be relative to work/<slug>/index.html (2 levels up)."""
+    """Rewrite relative asset and page paths to be relative to work/<slug>/index.html (2 levels up)."""
     for tag in soup.find_all(True):
         for attr in ("href", "src"):
             val = tag.get(attr)
-            if isinstance(val, str) and val.startswith(ASSET_PREFIXES):
+            if not isinstance(val, str):
+                continue
+            if val.startswith(ASSET_PREFIXES):
                 tag[attr] = "../../" + val
-        # index.html link in nav and footer → ../../index.html
-        if tag.get("href") == "index.html":
-            tag["href"] = "../../index.html"
+            elif val == "index.html" or val.startswith("index.html#") or val.startswith("index.html?"):
+                tag[attr] = "../../" + val
+            elif val in SIBLING_PAGES or val.split("#", 1)[0].split("?", 1)[0] in SIBLING_PAGES:
+                tag[attr] = "../../" + val
 
 
 def set_inner_html(tag, html: str) -> None:
