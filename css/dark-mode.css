@@ -231,8 +231,3 @@
     align-self: flex-start;
   }
 }
-
-/* Work card hover: subtle white-tinted outline reads against the dark bg. */
-.theme-dark .project-thumbnail-link:hover {
-  outline-color: rgba(255, 255, 255, 0.18);
-}
