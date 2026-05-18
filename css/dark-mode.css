@@ -231,3 +231,16 @@
     align-self: flex-start;
   }
 }
+
+/* Mobile menu: pin the theme switcher to the bottom of the slide-out drawer.
+   The existing margin-top:auto can fight justify-content:space-between on
+   the .nav-menu, so we use absolute positioning when the drawer is active. */
+@media (max-width: 768px) {
+  .nav-menu { position: relative; }
+  .nav-menu .theme-toggle--mobile {
+    position: absolute;
+    left: 5rem;       /* matches .nav-menu padding-left */
+    bottom: 2rem;
+    margin-top: 0;    /* override the prior margin-top:auto */
+  }
+}
