@@ -433,6 +433,9 @@ def build_page(row: dict, slug_to_title: dict) -> str:
         if row["Full bleed image"]:
             full_bleed_img["src"] = row["Full bleed image"]
             full_bleed_img["alt"] = f"{title} (full bleed)"
+            # White phone mockup on white bg blends in; give it a subtle bottom edge.
+            if row["Slug"] == "mercury-focused-funding":
+                full_bleed_img["style"] = "border-bottom: 1px solid #e5e5e5;"
             wrapper = full_bleed_img.find_parent("div", class_="collection-list-wrapper")
             empty = wrapper.find("div", class_="w-dyn-empty") if wrapper else None
             if empty:
