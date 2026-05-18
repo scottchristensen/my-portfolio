@@ -104,7 +104,6 @@ MEDIA_RESOLUTIONS = {
     },
     "Final shipped prototype (clickable)": {
         "embed": FIGMA_MERCURY_FF_FINAL, "aspect": "landscape",
-        "width": "extra-wide",
         "caption": "Final shipped prototype (click through the flow)",
     },
     "Funding-amount threshold multivariant": {
