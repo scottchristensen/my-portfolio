@@ -2112,7 +2112,7 @@ figcaption {
 
   .nav-menu {
     border-right: 1px solid var(--lightest-grey);
-    background-color: var(--white);
+    background-color: var(--mint);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
     flex-direction: column;
