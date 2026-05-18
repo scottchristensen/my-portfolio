@@ -426,11 +426,14 @@ figcaption {
   display: flex;
 }
 
+.project-thumbnail-link {
+  transition: background-color 0.2s ease;
+  border-radius: 0.5rem;
+}
+
 .project-thumbnail-link:hover {
   opacity: 1;
-  outline-offset: 3px;
-  border-radius: 1px;
-  outline: 2px solid #B5B5B5;
+  background-color: rgba(0, 0, 0, 0.04);
   font-style: normal;
 }
 
