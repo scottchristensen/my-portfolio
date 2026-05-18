@@ -16,10 +16,10 @@ def img(path: str) -> str:
     return urllib.parse.quote(path, safe="/")
 
 
-# Resolved media — when a marker's label appears here, the build script renders
+# Resolved media: when a marker's label appears here, the build script renders
 # the real image/embed instead of the dashed placeholder card. Add entries as
 # screenshots and embeds come in.
-VIMEO_MYSTERY = """<div style="padding:41.88% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/391423749?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Mystery—because you like doing things."></iframe></div>"""
+VIMEO_MYSTERY = """<div style="padding:41.88% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/391423749?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Mystery, because you like doing things."></iframe></div>"""
 
 FIGMA_MYSTERY_FILE = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FbS0Bepr8E0OQS8qZHS4YNz%2FOnboarding%3Fnode-id%3D1037%253A4781%26t%3DVevgW2WOvrOCZqVz-1" allowfullscreen></iframe>"""
 
@@ -58,7 +58,7 @@ MEDIA_RESOLUTIONS = {
             img("images/work/Egencia SS Option 2.png"),
             img("images/work/Egencia SS Option 3.png"),
         ],
-        "caption": "Help-center variants — Option 1, 2, 3",
+        "caption": "Help-center variants: Option 1, 2, 3",
     },
     "Multivariant test results": {"src": img("images/work/Egencia SS - option 3 variant C results.png")},
     # ---- H1 Browser Extension ----
@@ -82,25 +82,25 @@ MEDIA_RESOLUTIONS = {
     "Sticky header options": {"src": img("images/work/H1 Profile - sticky header.png")},
     "Final profile design": {"src": img("images/work/H1 Profile - final.png")},
     # ---- Egencia Self-Service ----
-    "Call propensity — ~50% call rate": {"src": img("images/work/Egencia SS call propensity.png")},
+    "Call propensity (~50% call rate)": {"src": img("images/work/Egencia SS call propensity.png")},
     "Six bets prioritized": {"src": img("images/work/Egencia SS - Strategy.png")},
     "Competitor audit (Expedia, Airbnb, Dropbox, Wealthfront)": {"src": img("images/work/Egencia competitor Audit.png")},
     "Airbnb contextual help inspiration": {"src": img("images/work/Egencia SS - Airbnb inspo.png")},
     "Blockframe iterations": {"src": img("images/work/Egencia SS - blockframe.png")},
-    "Option 1 — Channel Guidance": {"src": img("images/work/Egencia SS Option 1.png")},
-    "Option 2 — Channel Guidance + Trip": {"src": img("images/work/Egencia SS Option 2.png")},
-    "Option 3 — Simple": {"src": img("images/work/Egencia SS Option 3.png")},
-    "Option 3 launch — calls +5.9%": {"src": img("images/work/Egencia SS - option 3 results.png")},
-    "Variant C results — calls −2.8%": {"src": img("images/work/Egencia SS - option 3 variant C results.png")},
+    "Option 1: Channel Guidance": {"src": img("images/work/Egencia SS Option 1.png")},
+    "Option 2: Channel Guidance + Trip": {"src": img("images/work/Egencia SS Option 2.png")},
+    "Option 3: Simple": {"src": img("images/work/Egencia SS Option 3.png")},
+    "Option 3 launch (calls +5.9%)": {"src": img("images/work/Egencia SS - option 3 results.png")},
+    "Variant C results (calls −2.8%)": {"src": img("images/work/Egencia SS - option 3 variant C results.png")},
     # ---- Mercury Focused Funding ----
-    "Focused Funding — v1 initial flow": None,  # No screenshot yet — falls back to placeholder card
-    "Multivariant test — control vs. 2 funding methods vs. 2 methods + invoicing": {
+    "Focused Funding v1 initial flow": None,  # No screenshot yet; falls back to placeholder card
+    "Multivariant test: control vs. 2 funding methods vs. 2 methods + invoicing": {
         "embed": FIGMA_MERCURY_FF_MULTIVARIANT, "aspect": "landscape",
         "caption": "Multivariant: control vs. 2 funding methods vs. 2 methods + invoicing",
     },
     "Final shipped prototype (clickable)": {
         "embed": FIGMA_MERCURY_FF_FINAL, "aspect": "landscape",
-        "caption": "Final shipped prototype — click through the flow",
+        "caption": "Final shipped prototype (click through the flow)",
     },
     "Funding-amount threshold multivariant": {
         "embed": FIGMA_MERCURY_FF_THRESHOLD, "aspect": "landscape",
@@ -123,7 +123,7 @@ ASSET_PREFIXES = ("css/", "js/", "images/", "documents/")
 
 MEDIA_MARKER_RE = re.compile(r"\[\[MEDIA:(image|figma|video)\|([^|\]]+?)(?:\|([^\]]+))?\]\]")
 
-# Legacy aggregated manifest — no longer rendered, kept here only for reference.
+# Legacy aggregated manifest, no longer rendered, kept here only for reference.
 MEDIA_MANIFEST = {
     "mystery-onboarding": [
         {"section": "Background", "type": "video", "label": "Mystery promo (Vimeo embed)", "url": "https://vimeo.com/391423749"},
@@ -169,10 +169,10 @@ MEDIA_MANIFEST = {
         {"section": "My Process", "type": "image", "label": "Competitor audit (Expedia, Airbnb, Dropbox, Wealthfront)"},
         {"section": "My Process", "type": "image", "label": "Airbnb contextual help inspiration"},
         {"section": "My Process", "type": "image", "label": "Blockframe iterations"},
-        {"section": "My Process", "type": "image", "label": "Option 1 — Channel Guidance"},
-        {"section": "My Process", "type": "image", "label": "Option 2 — Channel Guidance + Trip info"},
-        {"section": "My Process", "type": "image", "label": "Option 3 — Simple"},
-        {"section": "My Process", "type": "image", "label": "Option 3 launch — call volume +5.9%"},
+        {"section": "My Process", "type": "image", "label": "Option 1: Channel Guidance"},
+        {"section": "My Process", "type": "image", "label": "Option 2: Channel Guidance + Trip info"},
+        {"section": "My Process", "type": "image", "label": "Option 3: Simple"},
+        {"section": "My Process", "type": "image", "label": "Option 3 launch (call volume +5.9%)"},
         {"section": "My Process", "type": "image", "label": "Variant C multivariant results"},
     ],
 }
@@ -272,7 +272,7 @@ def render_media_marker(match: "re.Match") -> str:
                 classes.append("is-iframe-square")
             return f'<figure class="{" ".join(classes)}">{resolution["embed"]}<figcaption>{caption}</figcaption></figure>'
 
-    # Fall through — still unresolved, render the dashed placeholder.
+    # Fall through; still unresolved, render the dashed placeholder.
     icon = TYPE_ICONS.get(mtype, "📎")
     type_label = TYPE_LABELS.get(mtype, mtype.title())
     link_html = (
@@ -417,7 +417,7 @@ def build_page(row: dict, slug_to_title: dict) -> str:
     if full_bleed_img:
         if row["Full bleed image"]:
             full_bleed_img["src"] = row["Full bleed image"]
-            full_bleed_img["alt"] = f"{title} — full bleed"
+            full_bleed_img["alt"] = f"{title} (full bleed)"
             wrapper = full_bleed_img.find_parent("div", class_="collection-list-wrapper")
             empty = wrapper.find("div", class_="w-dyn-empty") if wrapper else None
             if empty:
@@ -427,7 +427,7 @@ def build_page(row: dict, slug_to_title: dict) -> str:
             if section:
                 section.decompose()
 
-    # Remove the empty extra image sections — CSV has no data for these fields.
+    # Remove the empty extra image sections (CSV has no data for these fields).
     for img in soup.select("img.project-image.is-2-col, img.project-image"):
         section = img.find_parent("section")
         if section:
