@@ -231,3 +231,9 @@
     align-self: flex-start;
   }
 }
+
+/* Work card hover: invert the subtle background tint so it reads in dark mode.
+   Light mode uses rgba(0,0,0,0.04) (in the main webflow CSS). */
+.theme-dark .project-thumbnail-link:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
