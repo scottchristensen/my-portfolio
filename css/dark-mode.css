@@ -24,19 +24,19 @@
 /* Blockquote bar is hardcoded solid #000 */
 .theme-dark blockquote { border-left-color: var(--black); }
 
-/* Header/footer/nav accent sections.
-   In light mode they use pale mint over a white body for soft hierarchy.
-   In dark mode that mint-on-near-black combo reads as a banded color shift, so
-   force a true uniform body bg and add a hairline for separation.
-   !important guards against any Webflow inline color overrides. */
-.theme-dark .section-header.is-multi-colored,
-.theme-dark .section-header,
-.theme-dark .section-footer.is-multi-colored,
-.theme-dark .section-footer,
+/* Header/footer/nav accent sections in dark mode.
+   Use a dark olive-green accent that sits one tone above the body bg —
+   so the page reads as a single dark color family that blends smoothly
+   from nav → hero → body → footer. !important guards the value against
+   any cached/stale CSS or Webflow inline color overrides. */
+.theme-dark .section-nav,
 .theme-dark .section-nav.is-multi-colored,
-.theme-dark .section-nav { background-color: var(--white) !important; }
-.theme-dark .section-footer { border-top: 1px solid var(--lightest-grey); }
-.theme-dark .section-nav { border-bottom: 1px solid var(--lightest-grey); }
+.theme-dark .section-header,
+.theme-dark .section-header.is-multi-colored,
+.theme-dark .section-footer,
+.theme-dark .section-footer.is-multi-colored {
+  background-color: #1c2718 !important;
+}
 
 /* The "Footer-2.png" decorative illustration above the footer is a baked-in
    pastel scene that clashes with the dark surface. Hide it in dark mode. */
