@@ -1182,6 +1182,7 @@ figcaption {
 .project-image-full-bleed {
   border-radius: 0;
   width: 100%;
+  height: auto;
 }
 
 .section-footer {
