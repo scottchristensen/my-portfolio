@@ -3200,3 +3200,9 @@ figcaption {
   .w-nav[data-collapse='small'] .w-nav-menu { display: none; }
   .w-nav[data-collapse='small'] .w-nav-button { display: block; }
 }
+/* Neutralize Webflow's load-time skew animation on heading-xlarge elements.
+   The opacity fade still plays — only the skew(10deg, 6deg) → skew(0, 0)
+   twist is suppressed (overrides the inline transform with !important). */
+.heading-xlarge {
+  transform: none !important;
+}
