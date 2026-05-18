@@ -426,9 +426,13 @@ figcaption {
   display: flex;
 }
 
+.project-thumbnail-link {
+  border-radius: 16px;
+}
+
 .project-thumbnail-link:hover {
   opacity: 1;
-  outline-offset: 3px;
+  outline-offset: 16px;
   outline: 1px solid #D5D5D5;
   font-style: normal;
 }
