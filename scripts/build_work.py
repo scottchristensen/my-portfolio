@@ -39,6 +39,8 @@ FIGMA_MERCURY_FF_THRESHOLD = """<iframe style="border:1px solid rgba(0,0,0,0.1);
 
 FIGMA_MERCURY_VIRAL_SUCCESS_ALTS = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/knLHsLs6kfXGzX05kcXVz6/Mini-Projects-2025?node-id=63-208284&embed-host=share" allowfullscreen></iframe>"""
 
+FIGMA_MERCURY_FF_MODAL_EXPLORATIONS = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2025-104647&embed-host=share" allowfullscreen></iframe>"""
+
 MEDIA_RESOLUTIONS = {
     # ---- Mystery Onboarding ----
     "Mystery promo": {"embed": VIMEO_MYSTERY, "responsive": True},
@@ -108,6 +110,10 @@ MEDIA_RESOLUTIONS = {
     "Funding-amount threshold multivariant": {
         "embed": FIGMA_MERCURY_FF_THRESHOLD, "aspect": "landscape",
         "caption": "Fast-follow threshold multivariant test (+$1,500 median deposit)",
+    },
+    "Modal explorations: takeover vs. embedded": {
+        "embed": FIGMA_MERCURY_FF_MODAL_EXPLORATIONS, "aspect": "landscape",
+        "caption": "Modal explorations: full takeover vs. embedded with dashboard teaser",
     },
     # ---- Mercury Viral Upsell ----
     "Email value-prop refresh (before and after)": {

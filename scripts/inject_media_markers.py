@@ -135,6 +135,9 @@ INSERTIONS = [
 
     # ------------------- Mercury Focused Funding ---------------------
     ("mercury-focused-funding", "My Process",
+     "you want users to remember what they're working toward.</p>",
+     "[[MEDIA:figma|Modal explorations: takeover vs. embedded]]"),
+    ("mercury-focused-funding", "My Process",
      "single-screen layout in usability tests.</p>",
      "[[MEDIA:figma|Multivariant test: control vs. 2 funding methods vs. 2 methods + invoicing]]"),
     ("mercury-focused-funding", "My Process",
