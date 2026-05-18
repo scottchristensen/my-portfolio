@@ -1,0 +1,115 @@
+/* Dark mode
+   Activated by JS toggling .theme-dark on <html>.
+   System preference is honored by default; localStorage override wins.
+   Keep this file standalone so the Webflow exports can be re-run without losing it. */
+
+:root.theme-dark {
+  --white: #0f1011;
+  --black: #ededed;
+  --lightest-grey: #ffffff14;
+  --light-grey: #ffffff29;
+  --dark-grey: #ffffffa8;
+  --grey: #ffffff8c;
+  --mint: #1f2d18;
+}
+
+/* Surfaces, borders, and shadows hardcoded in the Webflow CSS */
+.theme-dark body { background-color: var(--white); color: var(--black); }
+
+.theme-dark .form-input:hover { border-color: #ffffff47; }
+.theme-dark .form-input:focus { box-shadow: 0 0 0 .125rem #fff; }
+.theme-dark .form-input::placeholder { color: #ffffffa8; }
+.theme-dark .error-message { background-color: #3a1f2e; color: #ffd0e5; }
+
+/* Blockquote bar is hardcoded solid #000 */
+.theme-dark blockquote { border-left-color: var(--black); }
+
+/* Header/footer/nav accent sections.
+   In light mode they use pale mint over a white body for soft hierarchy.
+   In dark mode that mint-on-near-black combo reads as a banded color shift, so
+   force a true uniform body bg and add a hairline for separation.
+   !important guards against any Webflow inline color overrides. */
+.theme-dark .section-header.is-multi-colored,
+.theme-dark .section-header,
+.theme-dark .section-footer.is-multi-colored,
+.theme-dark .section-footer,
+.theme-dark .section-nav.is-multi-colored,
+.theme-dark .section-nav { background-color: var(--white) !important; }
+.theme-dark .section-footer { border-top: 1px solid var(--lightest-grey); }
+.theme-dark .section-nav { border-bottom: 1px solid var(--lightest-grey); }
+
+/* The "Footer-2.png" decorative illustration above the footer is a baked-in
+   pastel scene that clashes with the dark surface. Hide it in dark mode. */
+.theme-dark .about-image-wrapper { display: none; }
+
+/* Rich-text link underline (hardcoded #00000030 / #000) — invisible on dark. */
+.theme-dark .text-rich-text a { box-shadow: inset 0 -3px var(--lightest-grey); }
+.theme-dark .text-rich-text a:hover { box-shadow: inset 0 -3px var(--black); }
+
+/* Focus-visible outlines on links are hardcoded #000. */
+.theme-dark a:focus-visible,
+.theme-dark a[data-wf-focus-visible] { outline-color: var(--black); }
+
+/* Interactive list-item hover state uses hardcoded #000 borders. */
+.theme-dark .list-item.is-interactive:hover {
+  border-color: var(--black);
+  border-bottom-color: var(--black);
+}
+
+/* Hard-coded hairlines and outlines in webflow.css */
+.theme-dark *[style*="border-bottom: 1px solid black"],
+.theme-dark *[style*="border-bottom: 1px solid #000"] { border-bottom-color: var(--lightest-grey) !important; }
+
+/* Mobile menu button bars are hardcoded #fff (visible on white). Flip for dark. */
+.theme-dark .menu-icon-line-top,
+.theme-dark .menu-icon-line-bottom,
+.theme-dark .menu-icon-line-middle,
+.theme-dark .menu-icon-line-middle-inner { background-color: var(--black); }
+
+/* SVG glyphs with attribute fill="black" (logo, social icons) */
+.theme-dark svg [fill="black"],
+.theme-dark svg [fill="#000"],
+.theme-dark svg [fill="#000000"] { fill: var(--black); }
+
+/* Text-highlight color (set inline in each page <head>) */
+.theme-dark ::selection { background: #3a5328; color: #fff; }
+
+/* Images: subtle dim so bright screenshots don't burn against dark surfaces.
+   Skip transparent UI icons by allowing an opt-out via [data-no-dim]. */
+.theme-dark img:not([data-no-dim]) { filter: brightness(.88) contrast(1.02); }
+
+/* Theme toggle button (injected by js/theme.js).
+   Stronger border + larger icon so it reads clearly against the mint nav
+   in light mode and the dark nav in dark mode. */
+.theme-toggle {
+  appearance: none;
+  background-color: var(--white);
+  border: 1.5px solid var(--black);
+  color: var(--black);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 1rem;
+  transition: background-color .2s ease, color .2s ease, transform .15s ease;
+}
+.theme-toggle:hover { background-color: var(--black); color: var(--white); transform: translateY(-1px); }
+.theme-toggle:active { transform: translateY(0) scale(.96); }
+.theme-toggle:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; }
+.theme-toggle svg { width: 1.375rem; height: 1.375rem; display: block; }
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+.theme-dark .theme-toggle .icon-sun { display: block; }
+.theme-dark .theme-toggle .icon-moon { display: none; }
+
+/* Place toggle inside .nav-container next to the menu button. */
+.nav-container .theme-toggle { flex: 0 0 auto; align-self: center; }
+
+@media (max-width: 767px) {
+  .theme-toggle { width: 2.5rem; height: 2.5rem; margin-left: .5rem; }
+  .theme-toggle svg { width: 1.25rem; height: 1.25rem; }
+}
