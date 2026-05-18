@@ -430,7 +430,7 @@ figcaption {
   opacity: 1;
   outline-offset: 3px;
   border-radius: 1px;
-  outline: 2px solid #000;
+  outline: 2px solid #B5B5B5;
   font-style: normal;
 }
 
@@ -3205,4 +3205,13 @@ figcaption {
    twist is suppressed (overrides the inline transform with !important). */
 .heading-xlarge {
   transform: none !important;
+}
+
+/* Work card arrow: slide right on card hover */
+.project-thumbnail-link .project-title-div > div.heading-small {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.project-thumbnail-link:hover .project-title-div > div.heading-small {
+  transform: translateX(0.4rem);
 }
