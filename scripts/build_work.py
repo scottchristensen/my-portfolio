@@ -33,7 +33,7 @@ FIGMA_H1_LANDING = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:
 
 FIGMA_MERCURY_FF_MULTIVARIANT = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-69245&embed-host=share" allowfullscreen></iframe>"""
 
-FIGMA_MERCURY_FF_FINAL = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/proto/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2-46296&p=f&viewport=-96%2C-18%2C0.19&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2%3A46296&page-id=0%3A1&embed-host=share" allowfullscreen></iframe>"""
+FIGMA_MERCURY_FF_FINAL = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/proto/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2-46296&p=f&scaling=scale-down&content-scaling=responsive&starting-point-node-id=2%3A46296&page-id=0%3A1&embed-host=share" allowfullscreen></iframe>"""
 
 FIGMA_MERCURY_FF_THRESHOLD = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-80225&embed-host=share" allowfullscreen></iframe>"""
 
