@@ -232,8 +232,7 @@
   }
 }
 
-/* Work card hover: invert the subtle background tint so it reads in dark mode.
-   Light mode uses rgba(0,0,0,0.04) (in the main webflow CSS). */
+/* Work card hover: subtle white-tinted outline reads against the dark bg. */
 .theme-dark .project-thumbnail-link:hover {
-  background-color: rgba(255, 255, 255, 0.06);
+  outline-color: rgba(255, 255, 255, 0.18);
 }
