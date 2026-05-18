@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/work/egencia-self-service/:path*",
+      "destination": "/work/expedia-self-service/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/work/egencia-self-service",
+      "destination": "/work/expedia-self-service/",
+      "permanent": true
+    }
+  ]
+}
