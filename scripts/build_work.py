@@ -33,7 +33,7 @@ FIGMA_H1_LANDING = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:
 
 FIGMA_MERCURY_FF_MULTIVARIANT = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-69245&embed-host=share" allowfullscreen></iframe>"""
 
-FIGMA_MERCURY_FF_FINAL = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/proto/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2-46296&p=f&scaling=scale-down&content-scaling=responsive&starting-point-node-id=2%3A46296&page-id=0%3A1&embed-host=share" allowfullscreen></iframe>"""
+FIGMA_MERCURY_FF_FINAL = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/proto/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2-46296&p=f&viewport=-96%2C-18%2C0.19&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2%3A46296&page-id=0%3A1&embed-host=share" allowfullscreen></iframe>"""
 
 FIGMA_MERCURY_FF_THRESHOLD = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-80225&embed-host=share" allowfullscreen></iframe>"""
 
@@ -102,6 +102,7 @@ MEDIA_RESOLUTIONS = {
     },
     "Final shipped prototype (clickable)": {
         "embed": FIGMA_MERCURY_FF_FINAL, "aspect": "landscape",
+        "width": "extra-wide",
         "caption": "Final shipped prototype (click through the flow)",
     },
     "Funding-amount threshold multivariant": {
@@ -267,6 +268,22 @@ PLACEHOLDER_STYLE = """
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
 .w-richtext figure.rich-media-figure.is-responsive-video > div { width: 100%; }
 .w-richtext figure.rich-media-figure.is-image-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+/* Extra-wide variant: break past the .container-large 80rem cap and span the
+   full viewport (minus a bit of breathing room). Useful for embeds with
+   built-in chrome that needs more horizontal real estate to read. */
+.w-richtext figure.rich-media-figure.is-extra-wide {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+@media (max-width: 991px) {
+  .w-richtext figure.rich-media-figure.is-extra-wide {
+    width: calc(100vw - 4rem);
+    margin-left: calc(50% - 50vw + 2rem);
+    margin-right: calc(50% - 50vw + 2rem);
+  }
+}
 .w-richtext figure.rich-media-figure figcaption { font-size: 0.85rem; color: #666; margin-top: 0.75rem; text-align: center; }
 </style>
 """
@@ -298,6 +315,8 @@ def render_media_marker(match: "re.Match") -> str:
                 classes.append("is-iframe-landscape")
             elif aspect == "square":
                 classes.append("is-iframe-square")
+            if resolution.get("width") == "extra-wide":
+                classes.append("is-extra-wide")
             return f'<figure class="{" ".join(classes)}">{resolution["embed"]}<figcaption>{caption}</figcaption></figure>'
 
     # Fall through; still unresolved, render the dashed placeholder.

@@ -151,6 +151,22 @@
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
 .w-richtext figure.rich-media-figure.is-responsive-video > div { width: 100%; }
 .w-richtext figure.rich-media-figure.is-image-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+/* Extra-wide variant: break past the .container-large 80rem cap and span the
+   full viewport (minus a bit of breathing room). Useful for embeds with
+   built-in chrome that needs more horizontal real estate to read. */
+.w-richtext figure.rich-media-figure.is-extra-wide {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+@media (max-width: 991px) {
+  .w-richtext figure.rich-media-figure.is-extra-wide {
+    width: calc(100vw - 4rem);
+    margin-left: calc(50% - 50vw + 2rem);
+    margin-right: calc(50% - 50vw + 2rem);
+  }
+}
 .w-richtext figure.rich-media-figure figcaption { font-size: 0.85rem; color: #666; margin-top: 0.75rem; text-align: center; }
 </style>
 </head>
