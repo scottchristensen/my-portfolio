@@ -7,3 +7,6 @@
 .idea/
 *.swp
 .vercel
+
+# Local image backups from scripts/resize_oversized_images.py
+images/_originals/
