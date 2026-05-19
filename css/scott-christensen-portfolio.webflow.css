@@ -3228,5 +3228,5 @@ figcaption {
   to   { opacity: 1; }
 }
 [style*="opacity:0"] {
-  animation: scc-page-fade-in 0.4s ease-out 0.04s both;
+  animation: scc-page-fade-in 0.25s ease-out 0.02s both;
 }
