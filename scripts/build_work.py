@@ -353,9 +353,25 @@ PLACEHOLDER_STYLE = """
 
 /* Cap the full-bleed hero at its source resolution and center it. Without this
    the image stretches to 100% of the viewport, upscaling past native pixel
-   dimensions on ultra-wide displays and looking soft. */
-.project-image-full-bleed {
+   dimensions on ultra-wide displays and looking soft. The .section ancestor is
+   display:flex with default justify-content:flex-start, so we have to center
+   at every level of the wrapper chain — the figure (section), the .collection-list
+   children, and the img itself. */
+figure.section.padding-0,
+figure.section.padding-0 > .collection-list-wrapper,
+figure.section.padding-0 .collection-list {
+  justify-content: center;
+  width: 100%;
+}
+.collection-item.is-full-bleed {
   max-width: 2000px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.project-image-full-bleed {
+  display: block;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
