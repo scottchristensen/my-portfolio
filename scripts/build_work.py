@@ -350,6 +350,15 @@ PLACEHOLDER_STYLE = """
   }
 }
 .w-richtext figure.rich-media-figure figcaption { font-size: 0.85rem; color: #666; margin-top: 0.75rem; text-align: center; }
+
+/* Cap the full-bleed hero at its source resolution and center it. Without this
+   the image stretches to 100% of the viewport, upscaling past native pixel
+   dimensions on ultra-wide displays and looking soft. */
+.project-image-full-bleed {
+  max-width: 2000px;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
 """
 
