@@ -10,3 +10,11 @@
 
 # Local image backups from scripts/resize_oversized_images.py
 images/_originals/
+
+# Private working notes + unpublished assets (keep out of public repo)
+data/sendsight-case-study-notes.md
+images/work/sendsight__placeholder__*
+
+# Scratch screenshots at repo root
+/opt-*.png
+/side.png

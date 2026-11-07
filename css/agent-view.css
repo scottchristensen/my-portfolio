@@ -1,0 +1,190 @@
+/* Human / Agent view toggle. Uses the site's own tokens (--black/--white/--mint
+   and friends flip under .theme-dark), so dark mode comes for free. */
+
+.av-dock {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  padding: .1875rem;
+  border-radius: 999px;
+  background: var(--white);
+  border: 1px solid var(--light-grey);
+  box-shadow: 0 .5rem 1.5rem #0000001f;
+  font-family: Neue Montreal, sans-serif;
+}
+.theme-dark .av-dock { box-shadow: 0 .5rem 1.5rem #00000080; }
+
+.av-thumb {
+  position: absolute;
+  top: .1875rem;
+  bottom: .1875rem;
+  left: 0;
+  border-radius: 999px;
+  background: var(--black);
+  transition: transform .3s cubic-bezier(.165, .84, .44, 1), width .3s cubic-bezier(.165, .84, .44, 1);
+}
+
+.av-seg {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: .375rem .6875rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--dark-grey);
+  font: inherit;
+  font-size: .8125rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .3s cubic-bezier(.165, .84, .44, 1);
+}
+.av-seg:hover { color: var(--black); }
+.av-seg[aria-pressed="true"] { color: var(--white); }
+.av-seg:focus-visible { outline: 2px solid var(--black); outline-offset: 2px; }
+
+/* ---------------------------------------------------------------- overlay */
+
+.av-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow-y: auto;
+  background: var(--white);
+  color: var(--black);
+  font-family: Neue Montreal, sans-serif;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .15s ease, visibility 0s linear .15s;
+}
+.av-overlay.is-open { opacity: 1; visibility: visible; transition: opacity .15s ease; }
+html.av-lock, html.av-lock body { overflow: hidden; }
+/* Set by the inline head snippet when landing in agent view; JS clears it. */
+html.av-pre body > :not(.av-overlay):not(.av-dock) { visibility: hidden; }
+
+.av-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: var(--mint);
+  border-bottom: 1px solid var(--lightest-grey);
+}
+.av-back, .av-wordmark { color: var(--black); text-decoration: none; font-weight: 500; }
+.av-back { border: 0; background: none; padding: 0; font: inherit; font-weight: 500; cursor: pointer; }
+.av-back:hover, .av-wordmark:hover { opacity: .65; }
+.av-path { margin-left: auto; color: var(--dark-grey); font: .8125rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; text-align: right; }
+
+.av-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 46rem) 15rem;
+  gap: 4rem;
+  justify-content: center;
+  padding: 3rem 2rem 8rem;
+}
+
+.av-label {
+  margin: 0 0 1.5rem;
+  color: var(--grey);
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+/* Rendered markdown — reading surface, no motion. */
+.av-doc { font-size: 1rem; line-height: 1.6; overflow-wrap: anywhere; }
+.av-doc h1 { font-size: 2.25rem; line-height: 1.15; font-weight: 500; margin: 0 0 1.25rem; }
+.av-doc h2 { font-size: 1.375rem; line-height: 1.3; font-weight: 500; margin: 2.5rem 0 .75rem; padding-top: 1.5rem; border-top: 1px solid var(--lightest-grey); }
+.av-doc h3, .av-doc h4, .av-doc h5, .av-doc h6 { font-size: 1.0625rem; font-weight: 500; margin: 1.75rem 0 .5rem; }
+/* Site globals set p/ul/li/blockquote at 1.5–2rem with big margins; reset for reading. */
+.av-doc p, .av-doc ul, .av-doc ol, .av-doc li, .av-doc blockquote, .av-others p { max-width: none; font-size: 1rem; line-height: 1.6; letter-spacing: normal; }
+.av-doc p, .av-doc ul, .av-doc ol, .av-doc blockquote, .av-doc pre { margin: 0 0 1rem; }
+.av-doc ul, .av-doc ol { margin-left: 0; padding-left: 1.25rem; }
+.av-doc ul { list-style-type: disc; }
+.av-doc li { margin-bottom: .375rem; padding-left: .25rem; }
+.av-doc blockquote { border-left: 3px solid var(--black); margin: 0 0 1.5rem; padding: .125rem 0 .125rem 1rem; font-size: 1.125rem; }
+.av-label, .av-rail h3 { max-width: none; }
+.av-doc code, .av-doc pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .875em; }
+.av-doc code { background: var(--lightest-grey); padding: .1em .35em; border-radius: .25rem; }
+.av-doc pre { background: var(--lightest-grey); padding: 1rem; border-radius: .375rem; overflow-x: auto; }
+.av-doc pre code { background: none; padding: 0; }
+.av-doc hr { border: 0; border-top: 1px solid var(--light-grey); margin: 2rem 0; }
+.av-doc a { color: inherit; box-shadow: inset 0 -2px 0 0 var(--light-grey); text-decoration: none; }
+.av-doc a:hover { box-shadow: inset 0 -2px 0 0 var(--black); }
+
+.av-others { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--light-grey); }
+.av-others h2 { font-size: 1.375rem; font-weight: 500; margin: 0 0 1.25rem; }
+.av-others ul { list-style: none; padding: 0; margin: 0; font-size: 1rem; }
+.av-others li { padding-left: 0; margin: 0; }
+.av-others li { padding: 1rem 0; border-bottom: 1px solid var(--lightest-grey); }
+.av-others a.av-other-title { color: var(--black); font-weight: 500; text-decoration: none; }
+.av-others a.av-other-title:hover { opacity: .65; }
+.av-others p { margin: .25rem 0; color: var(--dark-grey); font-size: .9375rem; line-height: 1.5; }
+.av-others .av-mono { font: .75rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--grey); }
+.av-others .av-mono a { color: inherit; }
+
+/* Action rail: a primary copy button, then quiet icon + label links. */
+.av-rail { position: sticky; top: 6rem; align-self: start; display: flex; flex-direction: column; }
+.av-rail h3 { margin: 0 0 .25rem; padding: 0 .5rem; color: var(--grey); font-size: .875rem; font-weight: 500; }
+.av-rail hr { width: 100%; border: 0; border-top: 1px solid var(--light-grey); margin: 1rem 0; }
+.av-act {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .5rem;
+  border: 0;
+  border-radius: .375rem;
+  background: none;
+  color: var(--dark-grey);
+  font: inherit;
+  font-size: .9375rem;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.av-act span { overflow: hidden; text-overflow: ellipsis; }
+.av-act svg { width: 1.125rem; height: 1.125rem; flex: none; }
+.av-act:hover, .av-act:focus-visible { color: var(--black); background: var(--lightest-grey); }
+.av-act:focus-visible { outline: 2px solid var(--black); outline-offset: 1px; }
+.av-act.is-primary {
+  justify-content: center;
+  gap: .5rem;
+  margin-bottom: .75rem;
+  padding: .75rem 1rem;
+  background: var(--black);
+  color: var(--white);
+  font-weight: 500;
+}
+.av-act.is-primary:hover { background: var(--black); opacity: .85; }
+
+@media screen and (max-width: 991px) {
+  .av-layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 1.5rem 1.5rem 7rem; }
+  .av-rail { position: static; order: -1; flex-direction: row; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+  .av-rail h3, .av-rail hr { display: none; }
+  .av-act { gap: .4375rem; padding: .4375rem .75rem; border: 1px solid var(--light-grey); font-size: .8125rem; }
+  .av-act svg { width: .9375rem; height: .9375rem; }
+  .av-act.is-primary { margin-bottom: 0; padding: .4375rem .875rem; border-color: var(--black); }
+  .av-bar { padding: .875rem 1.5rem; gap: 1rem; }
+  .av-doc h1 { font-size: 1.75rem; }
+}
+@media screen and (max-width: 479px) {
+  .av-path { display: none; }
+  .av-wordmark { margin-left: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .av-thumb, .av-seg, .av-overlay, .av-overlay.is-open { transition: none; }
+}
+
+@media print {
+  .av-dock { display: none; }
+}

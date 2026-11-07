@@ -1,0 +1,36 @@
+/* ── Playground chrome (.pg-*) — sandbox furniture, not production CSS ── */
+@font-face { font-family: 'Neue Montreal'; src: url('../../fonts/NeueMontreal-Regular.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'Neue Montreal'; src: url('../../fonts/neue_montreal_medium_500-webfont.woff2') format('woff2'); font-weight: 500; }
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Neue Montreal', system-ui, sans-serif; background: #f4f4f2; color: #111; }
+
+.pg-shell { display: flex; min-height: 100vh; }
+
+.pg-sidebar {
+  width: 230px; flex-shrink: 0; padding: 24px 18px; border-right: 1px solid #0000001f;
+  background: #fff; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.pg-sidebar h2 { font-weight: 500; font-size: 15px; margin: 0 0 14px; letter-spacing: .01em; }
+.pg-history { list-style: none; margin: 0; padding: 0; }
+.pg-history li { margin-bottom: 8px; }
+.pg-history a { display: block; text-decoration: none; color: #111; border: 1px solid #0000001f; border-radius: 8px; padding: 8px 10px; background: #fff; font-size: 12.5px; font-weight: 500; }
+.pg-history a:hover { border-color: #000; }
+.pg-history a.pg-current { background: #f2fce2; border-color: #000; }
+.pg-history .pg-date { display: block; font-size: 10.5px; color: #0000008c; font-weight: 400; margin-top: 2px; }
+.pg-history .pg-chosen-badge { display: inline-block; font-size: 10px; font-weight: 500; background: #000; color: #fff; border-radius: 999px; padding: 1px 7px; margin-top: 4px; }
+
+.pg-main { flex: 1; padding: 34px clamp(18px, 4vw, 56px) 90px; min-width: 0; }
+.pg-page-header { max-width: 880px; margin-bottom: 34px; }
+.pg-eyebrow { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: #0000008c; margin: 0 0 8px; }
+.pg-title { font-weight: 500; font-size: clamp(28px, 4vw, 40px); margin: 0 0 10px; letter-spacing: -0.01em; }
+.pg-context { font-size: 15px; line-height: 1.55; color: #000000a8; margin: 0; }
+
+.pg-decision { max-width: 880px; border: 1px solid #000; border-radius: 10px; background: #f2fce2; padding: 14px 18px; font-size: 14px; margin-bottom: 34px; }
+
+.pg-option { margin-bottom: 56px; }
+.pg-option-header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; margin-bottom: 12px; max-width: 1100px; }
+.pg-option-tag { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; background: #000; color: #fff; border-radius: 999px; padding: 4px 12px; }
+.pg-option-name { font-weight: 500; font-size: 22px; }
+.pg-option-desc { font-size: 14px; color: #000000a8; flex-basis: 100%; max-width: 760px; line-height: 1.5; }
+.pg-option-render { border: 1px solid #0000002e; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 10px 30px #00000014; }

@@ -1,6 +1,6 @@
 /* Dark mode + small site-wide overrides.
    Dark theme is activated by JS toggling .theme-dark on <html>.
-   System preference is honored by default; localStorage override wins.
+   Follows the OS prefers-color-scheme setting; no manual override.
    Keep this file standalone so the Webflow exports can be re-run without losing it. */
 
 /* Tighter horizontal padding on tablet/mobile, applied site-wide so every
@@ -121,127 +121,12 @@
    Skip transparent UI icons by allowing an opt-out via [data-no-dim]. */
 .theme-dark img:not([data-no-dim]) { filter: brightness(.88) contrast(1.02); }
 
-/* Theme toggle button (injected by js/theme.js).
-   Stronger border + larger icon so it reads clearly against the mint nav
-   in light mode and the dark nav in dark mode. */
-.theme-toggle {
-  appearance: none;
-  background-color: var(--white);
-  border: 1.5px solid var(--black);
-  color: var(--black);
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 0;
-  margin-left: 1rem;
-  transition: background-color .2s ease, color .2s ease, transform .15s ease;
-}
-.theme-toggle:hover { background-color: var(--black); color: var(--white); transform: translateY(-1px); }
-.theme-toggle:active { transform: translateY(0) scale(.96); }
-.theme-toggle:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; }
-.theme-toggle svg { width: 1.375rem; height: 1.375rem; display: block; }
-.theme-toggle .icon-sun { display: none; }
-.theme-toggle .icon-moon { display: block; }
-.theme-dark .theme-toggle .icon-sun { display: block; }
-.theme-dark .theme-toggle .icon-moon { display: none; }
-
-/* Desktop: smaller circular frame than the base .theme-toggle, same icon size,
-   ghost (no fill) until hover inherits .theme-toggle:hover. */
-.theme-toggle--desktop {
-  flex: 0 0 auto;
-  align-self: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  background-color: transparent;
-}
-.theme-toggle--desktop svg {
-  width: 1.375rem;
-  height: 1.375rem;
-}
-
-/* Mobile variant: slide switch pinned to the bottom of the slide-out .nav-menu.
-   Hidden until the nav collapses (Webflow's "small" breakpoint is 991px). */
-.theme-toggle--mobile {
-  display: none;
-  align-items: center;
-  gap: .75rem;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  width: auto;
-  height: auto;
-  border-radius: 0;
-  cursor: pointer;
-  color: var(--black);
-  font-family: inherit;
-  font-size: 1.125rem;
-  font-weight: 500;
-  letter-spacing: .015625rem;
-  line-height: 1;
-}
-.theme-toggle--mobile:hover { background: transparent; color: var(--black); transform: none; }
-.theme-toggle--mobile:focus-visible { outline: 2px solid var(--black); outline-offset: 4px; border-radius: 4px; }
-.theme-toggle--mobile .theme-toggle__label { white-space: nowrap; }
-.theme-toggle--mobile .theme-toggle__track {
-  position: relative;
-  display: inline-block;
-  width: 2.75rem;
-  height: 1.5rem;
-  border-radius: 999px;
-  background-color: var(--lightest-grey);
-  border: 1.5px solid var(--black);
-  transition: background-color .2s ease;
-  flex: 0 0 auto;
-}
-.theme-toggle--mobile .theme-toggle__thumb {
-  position: absolute;
-  top: 50%;
-  left: 2px;
-  width: calc(1.5rem - 8px);
-  height: calc(1.5rem - 8px);
-  border-radius: 50%;
-  background-color: var(--black);
-  transform: translateY(-50%);
-  transition: transform .2s ease, background-color .2s ease;
-}
-/* Switched-on state: thumb slides right; track flips to filled. */
-.theme-dark .theme-toggle--mobile .theme-toggle__track { background-color: var(--black); }
-.theme-dark .theme-toggle--mobile .theme-toggle__thumb {
-  background-color: var(--white);
-  transform: translate(calc(2.75rem - 1.5rem), -50%);
-}
-
 @media (max-width: 991px) {
-  .nav-container .theme-toggle--desktop { display: none; }
-  /* Stack menu from the top so the toggle can sit on the bottom via margin-top: auto */
   .nav-menu {
     justify-content: flex-start;
   }
   .nav-menu .logo-wrapper {
     flex: 0 0 auto;
-  }
-  .nav-menu .theme-toggle--mobile {
-    display: inline-flex;
-    margin-top: auto;
-    align-self: flex-start;
-  }
-}
-
-/* Mobile menu: pin the theme switcher to the bottom of the slide-out drawer.
-   The existing margin-top:auto can fight justify-content:space-between on
-   the .nav-menu, so we use absolute positioning when the drawer is active. */
-@media (max-width: 768px) {
-  .nav-menu { position: relative; }
-  .nav-menu .theme-toggle--mobile {
-    position: absolute;
-    left: 5rem;       /* matches .nav-menu padding-left */
-    bottom: 2rem;
-    margin-top: 0;    /* override the prior margin-top:auto */
   }
 }
 
@@ -258,4 +143,118 @@
 .theme-dark .w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::after,
 .theme-dark .w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::after {
   color: #C8CCD0;
+}
+
+/* Link hover "italic": font-style can't be animated (it snaps), so instead of
+   switching to synthetic italic we lean the text with a skew transform that
+   transitions smoothly. Origin sits near the baseline so letters tip forward
+   like real italics rather than sliding sideways. Image-bearing links
+   (logo, work tiles, buttons, icons) are left out so nothing visual gets skewed. */
+a:hover,
+.navigation-link:hover,
+.text-style-link:hover,
+.text-rich-text a:hover,
+.list-item.is-interactive:hover { font-style: normal; }
+
+a:not([class]),
+.navigation-link,
+.text-style-link,
+.text-rich-text a,
+.breadcrumb_item,
+.list-item.is-interactive h3,
+.list-item.is-interactive p {
+  transform-origin: 50% 85%;
+  transition:
+    transform .22s cubic-bezier(.25, .8, .35, 1),
+    box-shadow .3s cubic-bezier(.165, .84, .44, 1),
+    opacity .3s cubic-bezier(.165, .84, .44, 1);
+}
+
+a:not([class]):hover,
+.navigation-link:hover,
+.navigation-link.w--current:hover,
+.text-style-link:hover,
+.text-rich-text a:hover,
+a.breadcrumb_item:hover,
+.list-item.is-interactive:hover h3,
+.list-item.is-interactive:hover p {
+  transform: skewX(-8deg);
+}
+
+/* Keep the existing press-in scale, now combined with the lean. */
+.navigation-link:active { transform: scale(.9) skewX(-8deg); }
+.text-style-link:active,
+.text-rich-text a:active { transform: scale(.94) skewX(-8deg); }
+
+/* Social icons keep their scale-up instead of leaning. */
+.social-links-wrapper .navigation-link:hover { transform: scale(1.2); }
+
+@media (prefers-reduced-motion: reduce) {
+  a:not([class]), .navigation-link, .text-style-link, .text-rich-text a,
+  .breadcrumb_item, .list-item.is-interactive h3, .list-item.is-interactive p {
+    transition: none;
+  }
+}
+
+/* "Ask anything" line after the homepage status (index.html, js/ask-ai.js).
+   Same type as the status paragraphs (.text-size-large); the logos follow the
+   words on the same line and are sized in em so they scale with the text.
+   Logos are black at a subtle .8 opacity; hover brings them to full strength,
+   scales them up (same as the SC logo and social icons) and shows a tooltip. */
+/* column-gap (not margin) spaces words from logos, so if the logos wrap on
+   narrow screens they start flush left; -.25rem cancels the link padding. */
+.ask-ai { display: flex; align-items: center; flex-wrap: wrap; column-gap: .625em; row-gap: .25em; }
+.ask-ai_links { display: inline-flex; align-items: center; gap: .375em; margin-left: -.25rem; }
+.ask-ai_link {
+  position: relative;
+  display: inline-flex;
+  padding: .25rem;
+  color: var(--black);
+  opacity: .8;
+  transition: opacity .2s ease;
+}
+.ask-ai_link:hover, .ask-ai_link:focus-visible { opacity: 1; }
+.ask-ai_link svg {
+  width: .875em;
+  height: .875em;
+  transition: transform .3s cubic-bezier(.165, .84, .44, 1);
+}
+.ask-ai_link:hover svg, .ask-ai_link:focus-visible svg { transform: scale(1.2); }
+.ask-ai_link:focus-visible { outline: 2px solid var(--black); outline-offset: 2px; border-radius: .375rem; }
+
+/* Tooltip ("Ask Claude about me") from the link's data-tip. */
+.ask-ai_link::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + .5rem);
+  transform: translate(-50%, -.25rem);
+  padding: .375rem .625rem;
+  border-radius: .375rem;
+  background: var(--black);
+  color: var(--white);
+  font-size: .8125rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s ease, transform .15s ease;
+  z-index: 5;
+}
+.ask-ai_link:hover::after, .ask-ai_link:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+/* First icon's tooltip anchors left so it never pokes past the page edge on phones. */
+.ask-ai_link:first-child::after { left: 0; transform: translate(0, -.25rem); }
+.ask-ai_link:first-child:hover::after, .ask-ai_link:first-child:focus-visible::after { transform: translate(0, 0); }
+
+/* Keep a status link glued to the punctuation after it. Links are
+   inline-block site-wide, so "Expedia." could otherwise wrap the period
+   onto its own line. */
+.link-punct { white-space: nowrap; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .ask-ai_link:hover svg, .ask-ai_link:focus-visible svg { transform: none; }
+  .ask-ai_link::after { transition: opacity .15s ease; }
 }

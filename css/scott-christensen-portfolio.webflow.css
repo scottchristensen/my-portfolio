@@ -325,8 +325,7 @@ figcaption {
   background-color: var(--black);
   color: var(--white);
   text-align: center;
-  letter-spacing: .125rem;
-  text-transform: uppercase;
+  letter-spacing: .01em;
   border-radius: .375rem;
   padding: 1.125rem 2rem;
   font-size: 1rem;
@@ -1318,8 +1317,7 @@ figcaption {
 .tag {
   background-color: var(--mint);
   text-align: center;
-  letter-spacing: .125rem;
-  text-transform: uppercase;
+  letter-spacing: .01em;
   border-radius: .375rem;
   margin-right: 1rem;
   padding: .35rem .7rem .35rem .75rem;
@@ -1504,6 +1502,8 @@ figcaption {
 }
 
 .about-image {
+  width: 100%;
+  height: auto;
   position: absolute;
   inset: auto 0% 0%;
 }

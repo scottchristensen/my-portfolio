@@ -1,0 +1,37 @@
+{
+  "entries": [
+    {
+      "id": "2026-11-06-ask-ai-placement",
+      "date": "2026-11-06",
+      "title": "Homepage \u2014 where \"Ask AI about me\" lives",
+      "context": "The ChatGPT / Claude / Gemini logos sit in a row under the hero title and feel a little off there, maybe because they trail below the name. This round tries four different homes for them: the nav, beside your current status, above the name, and the floating Human / Agent pill. Hover the logos in each to feel the interaction. In every option the hero is otherwise unchanged.",
+      "section": "Homepage hero",
+      "options": [
+        {
+          "id": "a",
+          "name": "Nav utility cluster",
+          "description": "The logos join LinkedIn and X at the end of the nav, after a hairline divider. They sit with your other \"outbound\" links, show up on every page, and the hero is left to the name alone."
+        },
+        {
+          "id": "b",
+          "name": "A line after your status",
+          "description": "A sentence after \"Currently\u2026 Previously\u2026\": \"Short on time? Ask ChatGPT, Claude, or Gemini to sum me up.\" The logos ride inside text links, so it reads as an offer rather than a row of badges."
+        },
+        {
+          "id": "c",
+          "name": "Eyebrow above the name",
+          "description": "Tests the \"it's because it's below\" theory: same row, moved above the title as a small eyebrow. The name stays the last word in the hero, and the icons read as an intro rather than a trailing afterthought."
+        },
+        {
+          "id": "d",
+          "name": "Docked with Human / Agent",
+          "description": "The logos move out of the page into the floating Human / Agent pill: \"Human | Agent \u00b7 Ask AI \u25ce \u2733 \u2726\". Every AI-facing feature lives in one persistent control, visible on every page while scrolling."
+        }
+      ],
+      "chosen": "b",
+      "url": "explorations/2026-11-06-ask-ai-placement.html",
+      "chosenAt": "2026-11-06",
+      "chosenNote": "First shipped C (icons above the name, no label), then switched the same day to B, revised: a third status line \"Ask anything\" + logos only (no AI names), set in the same .text-size-large type as the status, logos sized in em, same muted/scale-1.2/tooltip hover. Shipped in index.html (#overview) and css/dark-mode.css."
+    }
+  ]
+}

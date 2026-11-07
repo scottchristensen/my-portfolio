@@ -1,94 +1,16 @@
-/* Theme toggle: system default, persisted manual override, no FOUC.
+/* Theme: follows the OS light/dark setting automatically (no manual toggle).
    The pre-paint snippet in each HTML <head> applies the class synchronously
-   before paint; this file only wires the UI toggle and listeners. */
+   before paint; this file keeps it in sync if the OS setting changes. */
 (function () {
-  var STORAGE_KEY = 'theme';
   var root = document.documentElement;
   var mq = window.matchMedia('(prefers-color-scheme: dark)');
 
-  function currentPref() {
-    try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
-  }
+  // Clear any override saved by the old manual toggle.
+  try { localStorage.removeItem('theme'); } catch (e) {}
 
-  function apply(pref) {
-    var dark = pref === 'dark' || (pref !== 'light' && mq.matches);
-    root.classList.toggle('theme-dark', dark);
-    var switches = document.querySelectorAll('[role="switch"].theme-toggle');
-    for (var i = 0; i < switches.length; i++) {
-      switches[i].setAttribute('aria-checked', dark ? 'true' : 'false');
-    }
-  }
+  function apply() { root.classList.toggle('theme-dark', mq.matches); }
+  apply();
 
-  function setPref(pref) {
-    try {
-      if (pref) localStorage.setItem(STORAGE_KEY, pref);
-      else localStorage.removeItem(STORAGE_KEY);
-    } catch (e) {}
-    apply(pref);
-  }
-
-  // Follow system changes when the user hasn't picked an override.
-  function onSystemChange() { if (!currentPref()) apply(null); }
-  if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
-  else if (mq.addListener) mq.addListener(onSystemChange);
-
-  function buildButton(variant) {
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'theme-toggle theme-toggle--' + variant;
-    btn.setAttribute('title', 'Toggle dark mode');
-    if (variant === 'mobile') {
-      // Slide-switch styling for the menu: label + sliding pill.
-      btn.setAttribute('role', 'switch');
-      btn.setAttribute('aria-label', 'Dark mode');
-      btn.setAttribute(
-        'aria-checked',
-        root.classList.contains('theme-dark') ? 'true' : 'false'
-      );
-      btn.innerHTML =
-        '<span class="theme-toggle__label">Dark mode</span>' +
-        '<span class="theme-toggle__track" aria-hidden="true">' +
-          '<span class="theme-toggle__thumb"></span>' +
-        '</span>';
-    } else {
-      btn.setAttribute('aria-label', 'Toggle dark mode');
-      btn.innerHTML =
-        '<svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
-          '<path d="M20.5 14.5A8 8 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z" fill="currentColor"/>' +
-        '</svg>' +
-        '<svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
-          '<circle cx="12" cy="12" r="4" fill="currentColor"/>' +
-          '<g stroke="currentColor" stroke-width="1.75" stroke-linecap="round">' +
-            '<path d="M12 3v2"/><path d="M12 19v2"/>' +
-            '<path d="M3 12h2"/><path d="M19 12h2"/>' +
-            '<path d="M5.6 5.6 7 7"/><path d="M17 17l1.4 1.4"/>' +
-            '<path d="M5.6 18.4 7 17"/><path d="M17 7l1.4-1.4"/>' +
-          '</g>' +
-        '</svg>';
-    }
-    btn.addEventListener('click', function () {
-      var nextDark = !root.classList.contains('theme-dark');
-      setPref(nextDark ? 'dark' : 'light');
-    });
-    return btn;
-  }
-
-  function insertToggle() {
-    // Desktop: pinned in the nav container next to the menu button.
-    var container = document.querySelector('.nav-container');
-    if (container && !container.querySelector(':scope > .theme-toggle')) {
-      var btn = buildButton('desktop');
-      var menuBtn = container.querySelector('.menu-button');
-      if (menuBtn) container.insertBefore(btn, menuBtn);
-      else container.appendChild(btn);
-    }
-    // Mobile: no manual toggle in the slide-out menu — the pre-paint snippet
-    // in <head> already honors the OS dark/light preference automatically.
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', insertToggle);
-  } else {
-    insertToggle();
-  }
+  if (mq.addEventListener) mq.addEventListener('change', apply);
+  else if (mq.addListener) mq.addListener(apply);
 })();

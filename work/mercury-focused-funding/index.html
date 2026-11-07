@@ -18,7 +18,7 @@
 <link href="../../css/webflow.css" rel="stylesheet" type="text/css"/>
 <link href="../../css/scott-christensen-portfolio.webflow.css" rel="stylesheet" type="text/css"/>
 <link href="../../css/dark-mode.css" rel="stylesheet" type="text/css"/>
-<script>(function(){try{var p=localStorage.getItem("theme");var s=window.matchMedia("(prefers-color-scheme: dark)").matches;if(p==="dark"||(p!=="light"&&s)){document.documentElement.classList.add("theme-dark");}}catch(e){}})();</script>
+<script>(function(){try{if(window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.classList.add("theme-dark");}}catch(e){}})();</script>
 <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 <link href="../../images/favicon.png" rel="shortcut icon" type="image/x-icon"/>
 <link href="../../images/webclip.png" rel="apple-touch-icon"/>
@@ -96,7 +96,7 @@
 .media-placeholder-inline { display:flex; align-items:center; gap:0.75rem; background:#FAFAFA; border:1px dashed #C9C9C9; border-radius:8px; padding:1rem 1.25rem; margin:1.5rem 0; font-family:inherit; }
 .media-placeholder-inline__icon { font-size:1.25rem; flex-shrink:0; }
 .media-placeholder-inline__body { flex:1; min-width:0; }
-.media-placeholder-inline__type { font-size:0.7rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#888; margin:0 0 0.15rem; }
+.media-placeholder-inline__type { font-size:0.7rem; font-weight:600;  color:#888; margin:0 0 0.15rem; }
 .media-placeholder-inline__label { font-size:0.95rem; color:#222; margin:0; }
 .media-placeholder-inline__link { display:block; font-size:0.8rem; color:#666; margin-top:0.25rem; word-break:break-all; }
 
@@ -149,51 +149,15 @@
 .w-richtext figure.rich-media-figure.is-iframe-landscape iframe { aspect-ratio: 16 / 9; height: auto; }
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
 
-/* Loading state for lazy-loaded Figma embeds: while the iframe defers fetch,
-   the embed wrapper's background + pseudo-elements act as a "Figma embed loading"
-   poster. Once the iframe paints its content it covers everything. The wrapper
-   keeps the bg + spinner scoped to the embed area so the figcaption stays
-   transparent. */
-.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed,
-.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed {
-  position: relative;
-  background-color: #F5F5F5;
+/* Click-to-load Figma embeds (css/figma-embeds.css): the iframe is injected on
+   click and must fill the facade box, not use the generic iframe sizing above. */
+.w-richtext figure.rich-media-figure .figma-embed iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  aspect-ratio: auto; border: 0;
 }
-.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed iframe,
-.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed iframe {
-  position: relative;
-  background: transparent;
-  z-index: 1;
+.w-richtext figure.rich-media-figure .figma-embed__poster {
+  width: 100%; height: 100%; border-radius: 0;
 }
-.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::before,
-.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin: -2rem 0 0 -0.75rem;
-  border: 2px solid #D5D5D5;
-  border-top-color: #666;
-  border-radius: 50%;
-  animation: figma-loading-spin 0.8s linear infinite;
-  z-index: 0;
-}
-.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::after,
-.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::after {
-  content: "Figma embed loading";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 0.5rem);
-  color: #666;
-  font-size: 0.875rem;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  z-index: 0;
-}
-@keyframes figma-loading-spin { to { transform: rotate(360deg); } }
 .w-richtext figure.rich-media-figure.is-responsive-video > div { width: 100%; }
 .w-richtext figure.rich-media-figure.is-image-stack { display: flex; flex-direction: column; gap: 1.5rem; }
 /* Extra-wide variant: break past the .container-large 80rem cap and span the
@@ -239,6 +203,7 @@ figure.section.padding-0 .collection-list {
   margin-right: auto;
 }
 </style>
+<link href="../../css/figma-embeds.css" rel="stylesheet"/><script defer="" src="../../js/figma-embeds.js"></script><!-- agent-view --><link rel="alternate" type="text/markdown" href="/work/mercury-focused-funding.md"><link rel="help" href="/llms.txt"><script>try{var v=new URLSearchParams(location.search).get("view");if(v==="agent"||(v!=="human"&&sessionStorage.getItem("av-mode")==="agent"))document.documentElement.classList.add("av-pre")}catch(e){}</script><link href="/css/agent-view.css" rel="stylesheet" type="text/css"><script src="/js/agent-view.js" defer></script><!-- /agent-view -->
 </head>
 <body class="body">
 <div class="page-wrapper" style="-webkit-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)">
@@ -356,11 +321,9 @@ main:focus-visible {
 <a class="navigation-link w-inline-block" href="../../content.html">
 <h3 class="text-size-regular text-weight-medium">Content</h3>
 </a>
-<!-- CV REMOVED (un-comment to re-enable)
-              <a href="documents/Scott_Christensen_CV_5.18.23-compressed.pdf" target="_blank" class="navigation-link w-inline-block">
-                  <h3 class="text-size-regular text-weight-medium">CV</h3>
-                </a>
-              -->
+<a class="navigation-link w-inline-block" href="../../documents/Scott_Christensen_CV.pdf" rel="noopener" target="_blank">
+<h3 class="text-size-regular text-weight-medium">CV</h3>
+</a>
 <div class="social-links-wrapper">
 <a aria-label="LinkedIn" class="navigation-link w-inline-block" href="https://www.linkedin.com/in/scottcharleschristensen/" target="_blank">
 <div class="icon-1x1 social-icon-scale w-embed"><svg fill="none" height="24" viewbox="0 0 800 800" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -375,7 +338,7 @@ main:focus-visible {
 </defs>
 </svg></div>
 </a>
-<a aria-label="X/Twitter" class="navigation-link w-inline-block" href="https://twitter.com/_ScottC_" target="_blank">
+<a aria-label="X/Twitter" class="navigation-link w-inline-block" href="https://x.com/_ScottC_" target="_blank">
 <div class="icon-1x1 social-icon-scale w-embed"><svg aria-hidden="true" fill="currentColor" height="1.5rem" role="img" viewbox="0 0 24 24" width="1.5rem" xmlns="http://www.w3.org/2000/svg">
 <title>X (formerly Twitter) icon</title>
 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
@@ -499,7 +462,7 @@ main:focus-visible {
 <div class="content-wrapper" id="w-node-e7e06211-75c3-8fac-fd90-6842c36c5c69-a59cf88f">
 <h2>My Process</h2>
 <div class="padding-top padding-medium"></div>
-<div class="text-rich-text w-richtext"><h3>Discovery</h3><p>I started by interviewing both funded and unfunded approved applicants. The hypothesis I was most worried about: that a forceful funding gate would feel constraining and people would bail.</p><p>The interviews flipped that. Funded users <em>didn't even remember</em> the funding moment of their flow. It was just part of opening a bank account. Unfunded users said something similar in concept: of course you'd have to deposit at some point. You're a bank.</p><blockquote>Mercury isn't valuable if you don't deposit money into it. Despite all the cool features we offer, none of them matter without funds in the account.</blockquote><p>This is the kind of friction growth designers usually avoid. The team agreed it was the one moment in the funnel where a full-stop is justified.</p><h3>V1: The bet</h3><p>We couldn't get full political buy-in for a hard gate up front, so we hedged: a small cohort test (20% of users) to read the directional impact. Even at that sample size, v1 lifted deposit rates significantly, enough to greenlight a broader rollout.</p><h3>Modal: full takeover vs. embedded</h3><p>We explored a full-screen modal takeover but landed on an <em>embedded</em> modal that teases the dashboard underneath. Even with friction, you want users to remember what they're working toward.</p><figure class="rich-media-figure is-iframe-landscape"><div class="rich-media-figure__embed"><iframe allowfullscreen="" height="450" loading="lazy" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2025-104647&amp;embed-host=share" style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800"></iframe></div><figcaption>Modal explorations: full takeover vs. embedded with dashboard teaser</figcaption></figure><h3>Funding method hierarchy</h3><p>The earliest iterations showed every funding method at equal weight on a single screen. After testing, I broke the flow into more steps with bigger click targets and one decision per screen. <em>More steps isn't always worse</em>. Conversational flows with one question at a time beat the dense single-screen layout in usability tests.</p><figure class="rich-media-figure is-iframe-landscape"><div class="rich-media-figure__embed"><iframe allowfullscreen="" height="450" loading="lazy" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-69245&amp;embed-host=share" style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800"></iframe></div><figcaption>Multivariant: control vs. 2 funding methods vs. 2 methods + invoicing</figcaption></figure><h3>V2: The refinements</h3><p>Six months later, three things changed for the next round:</p><ul><li><strong>International wires.</strong> A rising share of applicants were international, and they couldn't deposit in v1.</li><li><strong>Mobile optimization.</strong> Mobile traffic was growing too. v1 was desktop-first.</li><li><strong>Invoicing as a funding method.</strong> Multivariant test introducing invoicing to capture the professional-services cohort opening accounts to receive their first client payment, and to push on the company-wide invoicing-adoption goal.</li></ul><figure class="rich-media-figure is-iframe-landscape"><div class="rich-media-figure__embed"><iframe allowfullscreen="" height="450" loading="lazy" src="https://embed.figma.com/proto/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2-46296&amp;p=f&amp;viewport=-96%2C-18%2C0.19&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=2%3A46296&amp;page-id=0%3A1&amp;embed-host=share" style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800"></iframe></div><figcaption>Final shipped prototype (click through the flow)</figcaption></figure><h3>Side win: the threshold-amount A/B</h3><p>One idea I wanted in v1 but had to cut for speed: showing suggested deposit thresholds tied to what each amount <em>unlocks</em>. We came back to it as a fast-follow A/B test. Result: <strong>+$1,500 to median deposit amount</strong> on ACH and wire flows. Defaults are powerful; defaults <em>with a reason</em> are more powerful.</p><figure class="rich-media-figure is-iframe-landscape"><div class="rich-media-figure__embed"><iframe allowfullscreen="" height="450" loading="lazy" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-80225&amp;embed-host=share" style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800"></iframe></div><figcaption>Fast-follow threshold multivariant test (+$1,500 median deposit)</figcaption></figure><h3>Hard decision: going to bat for international wires</h3><p>International wires almost got cut from v2: lower usage than ACH/domestic, hidden behind a progressive disclosure, lots of engineering complexity, and we didn't have a PM on the team to do the discovery. I took on the PM responsibilities myself, liaising with the wires &amp; banking team, learning the nuances of cross-border transfers, doing the due diligence. International ended up being the single biggest driver of the v2 7% lift.</p></div>
+<div class="text-rich-text w-richtext"><h3>Discovery</h3><p>I started by interviewing both funded and unfunded approved applicants. The hypothesis I was most worried about: that a forceful funding gate would feel constraining and people would bail.</p><p>The interviews flipped that. Funded users <em>didn't even remember</em> the funding moment of their flow. It was just part of opening a bank account. Unfunded users said something similar in concept: of course you'd have to deposit at some point. You're a bank.</p><blockquote>Mercury isn't valuable if you don't deposit money into it. Despite all the cool features we offer, none of them matter without funds in the account.</blockquote><p>This is the kind of friction growth designers usually avoid. The team agreed it was the one moment in the funnel where a full-stop is justified.</p><h3>V1: The bet</h3><p>We couldn't get full political buy-in for a hard gate up front, so we hedged: a small cohort test (20% of users) to read the directional impact. Even at that sample size, v1 lifted deposit rates significantly, enough to greenlight a broader rollout.</p><h3>Modal: full takeover vs. embedded</h3><p>We explored a full-screen modal takeover but landed on an <em>embedded</em> modal that teases the dashboard underneath. Even with friction, you want users to remember what they're working toward.</p><figure class="rich-media-figure is-iframe-landscape"><div class="rich-media-figure__embed figma-embed" data-figma-src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2025-104647&amp;embed-host=share" data-figma-title="Modal explorations: full takeover vs. embedded with dashboard teaser"><button class="figma-embed__load" type="button">Load interactive Figma</button><a class="figma-embed__open" href="https://www.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2025-104647" rel="noopener" target="_blank">Open in Figma ↗</a></div><figcaption>Modal explorations: full takeover vs. embedded with dashboard teaser</figcaption></figure><h3>Funding method hierarchy</h3><p>The earliest iterations showed every funding method at equal weight on a single screen. After testing, I broke the flow into more steps with bigger click targets and one decision per screen. <em>More steps isn't always worse</em>. Conversational flows with one question at a time beat the dense single-screen layout in usability tests.</p><figure class="rich-media-figure is-iframe-landscape"><div class="rich-media-figure__embed figma-embed" data-figma-src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-69245&amp;embed-host=share" data-figma-title="Multivariant: control vs. 2 funding methods vs. 2 methods + invoicing"><button class="figma-embed__load" type="button">Load interactive Figma</button><a class="figma-embed__open" href="https://www.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-69245" rel="noopener" target="_blank">Open in Figma ↗</a></div><figcaption>Multivariant: control vs. 2 funding methods vs. 2 methods + invoicing</figcaption></figure><h3>V2: The refinements</h3><p>Six months later, three things changed for the next round:</p><ul><li><strong>International wires.</strong> A rising share of applicants were international, and they couldn't deposit in v1.</li><li><strong>Mobile optimization.</strong> Mobile traffic was growing too. v1 was desktop-first.</li><li><strong>Invoicing as a funding method.</strong> Multivariant test introducing invoicing to capture the professional-services cohort opening accounts to receive their first client payment, and to push on the company-wide invoicing-adoption goal.</li></ul><figure class="rich-media-figure is-iframe-landscape"><div class="rich-media-figure__embed figma-embed" data-figma-src="https://embed.figma.com/proto/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2-46296&amp;p=f&amp;viewport=-96%2C-18%2C0.19&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=2%3A46296&amp;page-id=0%3A1&amp;embed-host=share" data-figma-title="Final shipped prototype (click through the flow)"><button class="figma-embed__load" type="button">Load interactive Figma</button><a class="figma-embed__open" href="https://www.figma.com/proto/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2-46296&amp;p=f&amp;viewport=-96%2C-18%2C0.19&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=2%3A46296&amp;page-id=0%3A1" rel="noopener" target="_blank">Open in Figma ↗</a></div><figcaption>Final shipped prototype (click through the flow)</figcaption></figure><h3>Side win: the threshold-amount A/B</h3><p>One idea I wanted in v1 but had to cut for speed: showing suggested deposit thresholds tied to what each amount <em>unlocks</em>. We came back to it as a fast-follow A/B test. Result: <strong>+$1,500 to median deposit amount</strong> on ACH and wire flows. Defaults are powerful; defaults <em>with a reason</em> are more powerful.</p><figure class="rich-media-figure is-iframe-landscape"><div class="rich-media-figure__embed figma-embed" data-figma-src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-80225&amp;embed-host=share" data-figma-title="Fast-follow threshold multivariant test (+$1,500 median deposit)"><button class="figma-embed__load" type="button">Load interactive Figma</button><a class="figma-embed__open" href="https://www.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2015-80225" rel="noopener" target="_blank">Open in Figma ↗</a></div><figcaption>Fast-follow threshold multivariant test (+$1,500 median deposit)</figcaption></figure><h3>Hard decision: going to bat for international wires</h3><p>International wires almost got cut from v2: lower usage than ACH/domestic, hidden behind a progressive disclosure, lots of engineering complexity, and we didn't have a PM on the team to do the discovery. I took on the PM responsibilities myself, liaising with the wires &amp; banking team, learning the nuances of cross-border transfers, doing the due diligence. International ended up being the single biggest driver of the v2 7% lift.</p></div>
 </div>
 </div>
 </div>
@@ -555,11 +518,11 @@ main:focus-visible {
 <h3 class="max-width-medium">I’m Scott, a growth design leader, founder, and advisor based in SLC.</h3>
 </div>
 <div class="margin-bottom margin-huge">
-<a class="button w-button" href="mailto:scott.charles.christensen@gmail.com?subject=%F0%9F%91%8B%20Hello!">EMAIL ME →</a>
+<a class="button w-button" href="mailto:scott.charles.christensen@gmail.com?subject=%F0%9F%91%8B%20Hello!">Let's chat →</a>
 </div>
 <div class="footer_row">
 <a href="https://www.linkedin.com/in/scottcharleschristensen/" target="_blank">LinkedIn</a>
-<a href="https://twitter.com/_ScottC_" target="_blank">X/Twitter</a>
+<a href="https://x.com/_ScottC_" target="_blank">X/Twitter</a>
 <div class="text-size-small text-color-grey margin-0" id="w-node-bd178905-9fb1-961d-4eba-f3e3b4790213-1d954aa0">©2026 Scott Christensen</div>
 </div>
 </div>
