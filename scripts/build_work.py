@@ -2,6 +2,7 @@
 """Generate work detail pages from data/work.csv using detail_work.html as template."""
 
 import csv
+import html as html_lib
 import json
 import re
 import shutil
@@ -58,8 +59,8 @@ FIGMA_MERCURY_FF_MODAL_EXPLORATIONS = """<iframe style="border:1px solid rgba(0,
 MEDIA_RESOLUTIONS = {
     # ---- Mystery Onboarding ----
     "Mystery promo": {"embed": VIMEO_MYSTERY, "responsive": True},
-    "Onboarding flow (Figma)": {"embed": FIGMA_MYSTERY_FILE, "aspect": "landscape"},
-    "Final onboarding prototype (Figma)": {"embed": FIGMA_MYSTERY_PROTO, "aspect": "square"},
+    "Onboarding flow (Figma)": {"embed": FIGMA_MYSTERY_FILE, "aspect": "landscape", "poster": "mystery-onboarding-flow"},
+    "Final onboarding prototype (Figma)": {"embed": FIGMA_MYSTERY_PROTO, "aspect": "square", "poster": "mystery-onboarding-prototype"},
     "Lyft Concierge ride-flow screenshot": {"src": img("images/work/mystery_lyft concierge.png")},
     "Account-creation UX audit screens": {"src": img("images/work/Mystery - Acct creation.png")},
     "Suggested account-creation flow": {"src": img("images/work/Mystery O - Suggestion Acct Creation.png")},
@@ -82,10 +83,10 @@ MEDIA_RESOLUTIONS = {
     # ---- H1 Browser Extension ----
     "Customer discovery interview (Dartmouth)": {"src": img("images/work/h1 browser - customer discovery interview.png")},
     "Fake Door landing page test": {"src": img("images/work/H1 browser - Fake Door.png")},
-    "H1 Explorer (Figma)": {"embed": FIGMA_H1_FILE, "aspect": "landscape"},
-    "Top-of-funnel onboarding tab (Figma)": {"embed": FIGMA_H1_TOFU, "aspect": "landscape"},
+    "H1 Explorer (Figma)": {"embed": FIGMA_H1_FILE, "aspect": "landscape", "poster": "h1-explorer"},
+    "Top-of-funnel onboarding tab (Figma)": {"embed": FIGMA_H1_TOFU, "aspect": "landscape", "poster": "h1-tofu-onboarding"},
     "Rate-limit / paywall design": {"src": img("images/work/H1 browser extension - Paywall.png")},
-    "Landing-page hero variants (Figma)": {"embed": FIGMA_H1_LANDING, "aspect": "landscape"},
+    "Landing-page hero variants (Figma)": {"embed": FIGMA_H1_LANDING, "aspect": "landscape", "poster": "h1-landing-hero-variants"},
     # ---- H1 Doctor Profile ----
     "H1 platform overview": {"src": img("images/work/H1 Intro image.png")},
     "MSL value-prop diagram": {"src": img("images/work/H1 Value Prop.png")},
@@ -113,19 +114,19 @@ MEDIA_RESOLUTIONS = {
     # ---- Mercury Focused Funding ----
     "Focused Funding v1 initial flow": None,  # No screenshot yet; falls back to placeholder card
     "Multivariant test: control vs. 2 funding methods vs. 2 methods + invoicing": {
-        "embed": FIGMA_MERCURY_FF_MULTIVARIANT, "aspect": "landscape",
+        "embed": FIGMA_MERCURY_FF_MULTIVARIANT, "aspect": "landscape", "poster": "mercury-ff-multivariant",
         "caption": "Multivariant: control vs. 2 funding methods vs. 2 methods + invoicing",
     },
     "Final shipped prototype (clickable)": {
-        "embed": FIGMA_MERCURY_FF_FINAL, "aspect": "landscape",
+        "embed": FIGMA_MERCURY_FF_FINAL, "aspect": "landscape", "poster": "mercury-ff-final-prototype",
         "caption": "Final shipped prototype (click through the flow)",
     },
     "Funding-amount threshold multivariant": {
-        "embed": FIGMA_MERCURY_FF_THRESHOLD, "aspect": "landscape",
+        "embed": FIGMA_MERCURY_FF_THRESHOLD, "aspect": "landscape", "poster": "mercury-ff-threshold",
         "caption": "Fast-follow threshold multivariant test (+$1,500 median deposit)",
     },
     "Modal explorations: takeover vs. embedded": {
-        "embed": FIGMA_MERCURY_FF_MODAL_EXPLORATIONS, "aspect": "landscape",
+        "embed": FIGMA_MERCURY_FF_MODAL_EXPLORATIONS, "aspect": "landscape", "poster": "mercury-ff-modal-explorations",
         "caption": "Modal explorations: full takeover vs. embedded with dashboard teaser",
     },
     # ---- Mercury Viral Upsell ----
@@ -138,7 +139,7 @@ MEDIA_RESOLUTIONS = {
         "caption": "Landing page — rebrand, refreshed container, mobile-responsive",
     },
     "Success screen alternative explorations": {
-        "embed": FIGMA_MERCURY_VIRAL_SUCCESS_ALTS, "aspect": "landscape",
+        "embed": FIGMA_MERCURY_VIRAL_SUCCESS_ALTS, "aspect": "landscape", "poster": "mercury-viral-success-alts",
         "caption": "Alternatives explored via internal feedback + lightweight user testing",
     },
     "Success screen redesign with value props": {
@@ -233,7 +234,7 @@ PLACEHOLDER_STYLE = """
 .media-placeholder-inline { display:flex; align-items:center; gap:0.75rem; background:#FAFAFA; border:1px dashed #C9C9C9; border-radius:8px; padding:1rem 1.25rem; margin:1.5rem 0; font-family:inherit; }
 .media-placeholder-inline__icon { font-size:1.25rem; flex-shrink:0; }
 .media-placeholder-inline__body { flex:1; min-width:0; }
-.media-placeholder-inline__type { font-size:0.7rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#888; margin:0 0 0.15rem; }
+.media-placeholder-inline__type { font-size:0.7rem; font-weight:600;  color:#888; margin:0 0 0.15rem; }
 .media-placeholder-inline__label { font-size:0.95rem; color:#222; margin:0; }
 .media-placeholder-inline__link { display:block; font-size:0.8rem; color:#666; margin-top:0.25rem; word-break:break-all; }
 
@@ -286,51 +287,15 @@ PLACEHOLDER_STYLE = """
 .w-richtext figure.rich-media-figure.is-iframe-landscape iframe { aspect-ratio: 16 / 9; height: auto; }
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
 
-/* Loading state for lazy-loaded Figma embeds: while the iframe defers fetch,
-   the embed wrapper's background + pseudo-elements act as a "Figma embed loading"
-   poster. Once the iframe paints its content it covers everything. The wrapper
-   keeps the bg + spinner scoped to the embed area so the figcaption stays
-   transparent. */
-.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed,
-.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed {
-  position: relative;
-  background-color: #F5F5F5;
+/* Click-to-load Figma embeds (css/figma-embeds.css): the iframe is injected on
+   click and must fill the facade box, not use the generic iframe sizing above. */
+.w-richtext figure.rich-media-figure .figma-embed iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  aspect-ratio: auto; border: 0;
 }
-.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed iframe,
-.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed iframe {
-  position: relative;
-  background: transparent;
-  z-index: 1;
+.w-richtext figure.rich-media-figure .figma-embed__poster {
+  width: 100%; height: 100%; border-radius: 0;
 }
-.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::before,
-.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin: -2rem 0 0 -0.75rem;
-  border: 2px solid #D5D5D5;
-  border-top-color: #666;
-  border-radius: 50%;
-  animation: figma-loading-spin 0.8s linear infinite;
-  z-index: 0;
-}
-.w-richtext figure.rich-media-figure.is-iframe-landscape .rich-media-figure__embed::after,
-.w-richtext figure.rich-media-figure.is-iframe-square .rich-media-figure__embed::after {
-  content: "Figma embed loading";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 0.5rem);
-  color: #666;
-  font-size: 0.875rem;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  z-index: 0;
-}
-@keyframes figma-loading-spin { to { transform: rotate(360deg); } }
 .w-richtext figure.rich-media-figure.is-responsive-video > div { width: 100%; }
 .w-richtext figure.rich-media-figure.is-image-stack { display: flex; flex-direction: column; gap: 1.5rem; }
 /* Extra-wide variant: break past the .container-large 80rem cap and span the
@@ -379,6 +344,62 @@ figure.section.padding-0 .collection-list {
 """
 
 
+FIGMA_SRC_RE = re.compile(r'<iframe[^>]*\ssrc="(https://(?:www\.figma\.com/embed|embed\.figma\.com/)[^"]+)"')
+
+
+def figma_open_url(embed_src: str) -> str:
+    """Turn a Figma embed URL into the regular figma.com URL for an 'Open in Figma' link."""
+    parsed = urllib.parse.urlparse(embed_src)
+    if parsed.netloc == "www.figma.com" and parsed.path == "/embed":
+        return urllib.parse.parse_qs(parsed.query).get("url", [embed_src])[0]
+    query = [(k, v) for k, v in urllib.parse.parse_qsl(parsed.query) if k != "embed-host"]
+    return urllib.parse.urlunparse(
+        parsed._replace(netloc="www.figma.com", query=urllib.parse.urlencode(query))
+    )
+
+
+POSTER_DIR = "images/figma-posters"
+
+
+def find_poster(name) -> "str | None":
+    """Static screenshot shown behind a Figma embed's load button.
+    Drop images/figma-posters/<name>.webp|png|jpg in place and rebuild."""
+    if not name:
+        return None
+    for ext in ("webp", "png", "jpg"):
+        rel = f"{POSTER_DIR}/{name}.{ext}"
+        if (ROOT / rel).exists():
+            return rel
+    print(f"  note: no Figma poster at {POSTER_DIR}/{name}.(webp|png|jpg); using blank facade")
+    return None
+
+
+def figma_facade(embed_html: str, caption: str, aspect, poster_name=None) -> "str | None":
+    """Click-to-load placeholder for a Figma iframe (see js/figma-embeds.js).
+    Returns None if embed_html isn't a Figma iframe."""
+    m = FIGMA_SRC_RE.search(embed_html)
+    if not m:
+        return None
+    src = m.group(1)
+    poster = find_poster(poster_name)
+    cls = "rich-media-figure__embed figma-embed"
+    if aspect == "square":
+        cls += " is-square"
+    if poster:
+        cls += " has-poster"
+    poster_html = (
+        f'<img class="figma-embed__poster" src="{poster}" alt="Preview: {html_lib.escape(caption)}" loading="lazy" decoding="async">'
+        if poster else ""
+    )
+    return (
+        f'<div class="{cls}" data-figma-src="{html_lib.escape(src)}" data-figma-title="{html_lib.escape(caption)}">'
+        f'{poster_html}'
+        f'<button type="button" class="figma-embed__load">Load interactive Figma</button>'
+        f'<a class="figma-embed__open" href="{html_lib.escape(figma_open_url(src))}" target="_blank" rel="noopener">Open in Figma ↗</a>'
+        f'</div>'
+    )
+
+
 def render_media_marker(match: "re.Match") -> str:
     mtype, label, url = match.group(1), match.group(2).strip(), (match.group(3) or "").strip()
 
@@ -407,8 +428,12 @@ def render_media_marker(match: "re.Match") -> str:
                 classes.append("is-iframe-square")
             if resolution.get("width") == "extra-wide":
                 classes.append("is-extra-wide")
-            # Wrap the iframe so the loading-state background/spinner sit only
-            # behind the embed, not under the figcaption.
+            facade = figma_facade(resolution["embed"], caption, aspect, resolution.get("poster"))
+            if facade:
+                return (
+                    f'<figure class="{" ".join(classes)}">{facade}'
+                    f'<figcaption>{caption}</figcaption></figure>'
+                )
             return (
                 f'<figure class="{" ".join(classes)}">'
                 f'<div class="rich-media-figure__embed">{resolution["embed"]}</div>'
@@ -627,6 +652,11 @@ def build_page(row: dict, slug_to_title: dict) -> str:
         for child in list(style_fragment.children):
             soup.head.append(child)
 
+    # Click-to-load Figma embeds: only ship the CSS/JS on pages that use them.
+    if soup.head and soup.select_one(".figma-embed"):
+        soup.head.append(soup.new_tag("link", rel="stylesheet", href="css/figma-embeds.css"))
+        soup.head.append(soup.new_tag("script", src="js/figma-embeds.js", defer=""))
+
     # Next project
     next_slug = row["Next project"].strip()
     if next_slug:
@@ -696,6 +726,10 @@ def main():
 
     JSON_PATH.write_text(json.dumps({"featured": featured, "grid": grid}, indent=2), encoding="utf-8")
     print(f"  wrote data/work.json ({len(featured)} featured, {len(grid)} grid)")
+
+    # Agent-readable twins (.md + llms.txt) and head tags — must run after /work is rebuilt.
+    import build_agent
+    build_agent.main()
 
 
 if __name__ == "__main__":
