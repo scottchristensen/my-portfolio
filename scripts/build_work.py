@@ -360,6 +360,11 @@ def figma_open_url(embed_src: str) -> str:
 
 POSTER_DIR = "images/figma-posters"
 
+# Figma mark used in the embed pills ("[logo] Load Figma", "Open in [logo]").
+FIGMA_LOGO_SVG = (
+    '<svg class="figma-embed__logo" width="11" height="16" viewBox="0 0 38 57" fill="currentColor" style="vertical-align:middle" aria-hidden="true" focusable="false"><path transform="matrix(0.8 0 0 0.8 5.7 5.7)" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path transform="matrix(0.8 0 0 0.8 1.9 9.5)" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path transform="matrix(0.8 0 0 0.8 5.7 1.9)" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path transform="matrix(0.8 0 0 0.8 1.9 1.9)" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path transform="matrix(0.8 0 0 0.8 1.9 5.7)" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>'
+)
+
 
 def find_poster(name) -> "str | None":
     """Static screenshot shown behind a Figma embed's load button.
@@ -394,8 +399,8 @@ def figma_facade(embed_html: str, caption: str, aspect, poster_name=None) -> "st
     return (
         f'<div class="{cls}" data-figma-src="{html_lib.escape(src)}" data-figma-title="{html_lib.escape(caption)}">'
         f'{poster_html}'
-        f'<button type="button" class="figma-embed__load">Load interactive Figma</button>'
-        f'<a class="figma-embed__open" href="{html_lib.escape(figma_open_url(src))}" target="_blank" rel="noopener">Open in Figma ↗</a>'
+        f'<button type="button" class="figma-embed__load">{FIGMA_LOGO_SVG}<span>Load Figma</span></button>'
+        f'<a class="figma-embed__open" href="{html_lib.escape(figma_open_url(src))}" target="_blank" rel="noopener" aria-label="Open in Figma (new tab)"><span>Open in</span>{FIGMA_LOGO_SVG}</a>'
         f'</div>'
     )
 
@@ -654,8 +659,8 @@ def build_page(row: dict, slug_to_title: dict) -> str:
 
     # Click-to-load Figma embeds: only ship the CSS/JS on pages that use them.
     if soup.head and soup.select_one(".figma-embed"):
-        soup.head.append(soup.new_tag("link", rel="stylesheet", href="css/figma-embeds.css"))
-        soup.head.append(soup.new_tag("script", src="js/figma-embeds.js", defer=""))
+        soup.head.append(soup.new_tag("link", rel="stylesheet", href="css/figma-embeds.css?v=3"))
+        soup.head.append(soup.new_tag("script", src="js/figma-embeds.js?v=3", defer=""))
 
     # Next project
     next_slug = row["Next project"].strip()

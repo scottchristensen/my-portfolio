@@ -14,8 +14,17 @@
 .figma-embed.is-square { aspect-ratio: 1 / 1; }
 .figma-embed.is-fixed-height { aspect-ratio: auto; height: 450px; }
 
-.figma-embed__load {
+/* Shared pill for both "Load Figma" and "Open in Figma". Selectors are scoped
+   under .figma-embed so they beat the site's rich-text link styles
+   (.text-style-link / .w-richtext a: inset underline shadow + italic on hover). */
+.figma-embed .figma-embed__load,
+.figma-embed a.figma-embed__open {
   appearance: none;
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   border: 1px solid #222;
   background: #fff;
   color: #222;
@@ -23,16 +32,30 @@
   padding: 0.7rem 1.25rem;
   font: inherit;
   font-size: 0.95rem;
+  font-style: normal;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: none;
+  transform: none;
   cursor: pointer;
   transition: background-color 0.15s, color 0.15s;
 }
-.figma-embed__load:hover,
-.figma-embed__load:focus-visible { background: #222; color: #fff; }
-
-.figma-embed__open {
-  font-size: 0.85rem;
-  color: #666;
-  text-decoration: underline;
+.figma-embed .figma-embed__load:hover,
+.figma-embed .figma-embed__load:focus-visible,
+.figma-embed a.figma-embed__open:hover,
+.figma-embed a.figma-embed__open:focus-visible {
+  background: #222;
+  color: #fff;
+  font-style: normal;
+  text-decoration: none;
+  box-shadow: none;
+}
+.figma-embed__logo {
+  display: inline-block;
+  height: 0.9em;
+  width: auto;
+  flex: none;
+  vertical-align: middle;
 }
 
 /* Static screenshot behind the load button. "scale-down" shows the whole frame,
@@ -58,22 +81,29 @@
   transition: opacity 0.2s;
 }
 .figma-embed.has-poster:hover .figma-embed__poster { filter: brightness(0.94); }
-.figma-embed__load,
-.figma-embed__open { position: relative; z-index: 2; }
-.figma-embed.has-poster .figma-embed__load {
+.figma-embed.has-poster .figma-embed__load,
+.figma-embed.has-poster a.figma-embed__open {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
-.figma-embed.has-poster .figma-embed__open {
+.figma-embed.has-poster a.figma-embed__open {
   position: absolute;
   right: 0.75rem;
   bottom: 0.75rem;
-  background: rgba(255, 255, 255, 0.92);
-  padding: 0.3rem 0.65rem;
-  border-radius: 999px;
-  text-decoration: none;
-  color: #222;
 }
-.figma-embed.has-poster .figma-embed__open:hover { text-decoration: underline; }
+/* Phones: the site bumps its base font size up, so shrink the pills to keep
+   the screenshot visible behind them. */
+@media (max-width: 767px) {
+  .figma-embed .figma-embed__load,
+  .figma-embed a.figma-embed__open {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.85rem;
+    gap: 0.4rem;
+  }
+  .figma-embed.has-poster a.figma-embed__open {
+    right: 0.5rem;
+    bottom: 0.5rem;
+  }
+}
 .figma-embed.is-loaded .figma-embed__poster,
 .figma-embed.is-loaded::after { opacity: 0; }
 
