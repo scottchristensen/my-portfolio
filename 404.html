@@ -28,6 +28,10 @@
 </style>
   <!--  Remove iOS input shadow  -->
   <style>
+/* The 404 hero has a Webflow "jello" wobble on scroll-into-view. Mid-wobble it
+   pokes past the viewport and Safari keeps that as scroll width, so the page
+   could be dragged sideways on phones. Clip (not hidden) so sticky nav still works. */
+.main-wrapper { overflow-x: clip; }
 .subscribe-form-input {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -37,23 +41,6 @@
   <!-- agent-view --><link rel="help" href="/llms.txt"><script>try{var v=new URLSearchParams(location.search).get("view");if(v==="agent"||(v!=="human"&&sessionStorage.getItem("av-mode")==="agent"))document.documentElement.classList.add("av-pre")}catch(e){}</script><link href="/css/agent-view.css" rel="stylesheet" type="text/css"><script src="/js/agent-view.js" defer></script><!-- /agent-view -->
 </head>
 <body class="background-color-mint">
-  <div id="pop-up-wrapper" class="pop-up_wrapper">
-    <div data-w-id="4cfc318d-0c01-b050-f8f9-7c1854c31488" class="pop-up_overlay"></div>
-    <div class="pop-up_dialog">
-      <div class="pop-up_content-top"><img src="images/Newsletter-Popup.png" loading="lazy" alt="" class="pop-up_image"></div>
-      <div class="pop-up_content-bottom">
-        <div class="w-embed w-iframe"><iframe src="https://growthdesigners.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe></div>
-        <a data-w-id="4cfc318d-0c01-b050-f8f9-7c1854c3148a" href="#" class="pop-up_close w-inline-block">
-          <div class="pop-up_close-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" display="block" height="24" width="24">
-              <path d="M6.4 19 5 17.6 10.6 12 5 6.4 6.4 5 12 10.6 17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4Z"></path>
-            </svg></div>
-        </a>
-        <div class="content-wrapper">
-          <p class="text-size-small text-color-grey margin-0 text-align-center">No spam, unsubscribe at any time</p>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="page-wrapper">
     <div class="global-styles w-embed">
       <style>

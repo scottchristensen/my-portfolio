@@ -347,22 +347,11 @@ figure.section.padding-0 .collection-list {
 FIGMA_SRC_RE = re.compile(r'<iframe[^>]*\ssrc="(https://(?:www\.figma\.com/embed|embed\.figma\.com/)[^"]+)"')
 
 
-def figma_open_url(embed_src: str) -> str:
-    """Turn a Figma embed URL into the regular figma.com URL for an 'Open in Figma' link."""
-    parsed = urllib.parse.urlparse(embed_src)
-    if parsed.netloc == "www.figma.com" and parsed.path == "/embed":
-        return urllib.parse.parse_qs(parsed.query).get("url", [embed_src])[0]
-    query = [(k, v) for k, v in urllib.parse.parse_qsl(parsed.query) if k != "embed-host"]
-    return urllib.parse.urlunparse(
-        parsed._replace(netloc="www.figma.com", query=urllib.parse.urlencode(query))
-    )
-
-
 POSTER_DIR = "images/figma-posters"
 
-# Figma mark used in the embed pills ("[logo] Load Figma", "Open in [logo]").
+# Full-color Figma mark used in the "[logo] Load Figma" button.
 FIGMA_LOGO_SVG = (
-    '<svg class="figma-embed__logo" width="11" height="16" viewBox="0 0 38 57" fill="currentColor" style="vertical-align:middle" aria-hidden="true" focusable="false"><path transform="matrix(0.8 0 0 0.8 5.7 5.7)" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path transform="matrix(0.8 0 0 0.8 1.9 9.5)" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path transform="matrix(0.8 0 0 0.8 5.7 1.9)" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path transform="matrix(0.8 0 0 0.8 1.9 1.9)" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path transform="matrix(0.8 0 0 0.8 1.9 5.7)" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>'
+    '<svg class="figma-embed__logo" width="11" height="16" viewBox="0 0 38 57" style="vertical-align:middle" aria-hidden="true" focusable="false"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>'
 )
 
 
@@ -400,7 +389,6 @@ def figma_facade(embed_html: str, caption: str, aspect, poster_name=None) -> "st
         f'<div class="{cls}" data-figma-src="{html_lib.escape(src)}" data-figma-title="{html_lib.escape(caption)}">'
         f'{poster_html}'
         f'<button type="button" class="figma-embed__load">{FIGMA_LOGO_SVG}<span>Load Figma</span></button>'
-        f'<a class="figma-embed__open" href="{html_lib.escape(figma_open_url(src))}" target="_blank" rel="noopener" aria-label="Open in Figma (new tab)"><span>Open in</span>{FIGMA_LOGO_SVG}</a>'
         f'</div>'
     )
 
@@ -659,8 +647,8 @@ def build_page(row: dict, slug_to_title: dict) -> str:
 
     # Click-to-load Figma embeds: only ship the CSS/JS on pages that use them.
     if soup.head and soup.select_one(".figma-embed"):
-        soup.head.append(soup.new_tag("link", rel="stylesheet", href="css/figma-embeds.css?v=3"))
-        soup.head.append(soup.new_tag("script", src="js/figma-embeds.js?v=3", defer=""))
+        soup.head.append(soup.new_tag("link", rel="stylesheet", href="css/figma-embeds.css?v=4"))
+        soup.head.append(soup.new_tag("script", src="js/figma-embeds.js?v=4", defer=""))
 
     # Next project
     next_slug = row["Next project"].strip()

@@ -17,6 +17,19 @@
 }
 .theme-dark .av-dock { box-shadow: 0 .5rem 1.5rem #00000080; }
 
+/* Mobile nav open: the menu should sit above the toggle. The menu panel only
+   covers part of the screen, so raising the nav alone would leave half the
+   toggle peeking out beside it; hide the toggle until the menu closes.
+   Webflow puts .w--open on the menu button while the menu is open. */
+.av-dock { transition: opacity .15s ease, visibility 0s linear 0s; }
+body:has(.w-nav-button.w--open) .av-dock {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .15s ease, visibility 0s linear .15s;
+}
+body:has(.w-nav-button.w--open) .section-nav { z-index: 10001; }
+
 .av-thumb {
   position: absolute;
   top: .1875rem;
