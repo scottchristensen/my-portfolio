@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate work detail pages from data/work.csv using detail_work.html as template."""
 
+import copy
 import csv
 import html as html_lib
 import json
@@ -56,11 +57,11 @@ FIGMA_MERCURY_VIRAL_SUCCESS_ALTS = """<iframe style="border:1px solid rgba(0,0,0
 
 FIGMA_MERCURY_FF_MODAL_EXPLORATIONS = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2025-104647&embed-host=share" loading="lazy" allowfullscreen></iframe>"""
 
-SENDSIGHT_DEMO = '<iframe src="https://app.sendsight.ai/demo" title="SendSight interactive demo" loading="lazy" allow="clipboard-write"></iframe>'
+SENDSIGHT_DEMO = '<img class="sendsight-demo-mobile" src="images/work/sendsight-hero.png" alt="The SendSight homepage" loading="lazy"><iframe src="https://app.sendsight.ai/demo" title="SendSight interactive demo" loading="lazy" allow="clipboard-write"></iframe>'
 
 MEDIA_RESOLUTIONS = {
     # ---- SendSight ----
-    "SendSight interactive demo": {"embed": SENDSIGHT_DEMO, "aspect": "landscape", "caption": "The real product, with demo data. Click around."},
+    "SendSight interactive demo": {"embed": SENDSIGHT_DEMO, "aspect": "landscape", "caption": '<span class="sendsight-demo-desktop">The real product, with demo data. Click around.</span><span class="sendsight-demo-mobile">The SendSight homepage. The interactive demo is built for desktop.</span>'},
     # ---- Mystery Onboarding ----
     "Mystery promo": {"embed": VIMEO_MYSTERY, "responsive": True},
     "Onboarding flow (Figma)": {"embed": FIGMA_MYSTERY_FILE, "aspect": "landscape", "poster": "mystery-onboarding-flow"},
@@ -290,10 +291,18 @@ PLACEHOLDER_STYLE = """
 }
 .w-richtext figure.rich-media-figure.is-iframe-landscape iframe { aspect-ratio: 16 / 9; height: auto; }
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
-/* The SendSight demo shows its own "best on desktop" message on phones, which
-   a 16:9 box at phone width would crop. */
-@media (max-width: 767px) {
-  .w-richtext figure.rich-media-figure iframe[src*="app.sendsight.ai"] { aspect-ratio: auto; height: 26rem; }
+/* The SendSight demo only works on desktop, so phones and tablets get a
+   homepage visual and a link out instead. */
+.w-richtext figure.rich-media-figure .sendsight-demo-mobile { display: none; }
+@media (min-width: 992px) {
+  a.button.sendsight-cta-mobile { display: none !important; }
+}
+@media (max-width: 991px) {
+  .w-richtext figure.rich-media-figure iframe[src*="app.sendsight.ai"],
+  .w-richtext figure.rich-media-figure .sendsight-demo-desktop,
+  a.button.sendsight-cta-desktop { display: none !important; }
+  .w-richtext figure.rich-media-figure img.sendsight-demo-mobile { display: block; width: 100%; height: auto; }
+  .w-richtext figure.rich-media-figure span.sendsight-demo-mobile { display: inline; }
 }
 
 /* Click-to-load Figma embeds (css/figma-embeds.css): the iframe is injected on
@@ -576,6 +585,18 @@ def build_page(row: dict, slug_to_title: dict) -> str:
         arrow_div = button.select_one(".button-wrapper > div:last-child")
         if arrow_div and link.startswith("#"):
             arrow_div.string = " ↓"
+
+        # SendSight's demo is desktop-only, so small screens get a link out instead.
+        if row["Slug"] == "sendsight":
+            mobile_button = copy.copy(button)
+            mobile_button["href"] = "https://sendsight.ai"
+            mobile_button["target"] = "_blank"
+            mobile_button["rel"] = "noopener"
+            mobile_button["class"] = button["class"] + ["sendsight-cta-mobile"]
+            mobile_button.select_one(".button-wrapper > div").string = "Visit SendSight"
+            mobile_button.select_one(".button-wrapper > div:last-child").string = " →"
+            button["class"] = button["class"] + ["sendsight-cta-desktop"]
+            button.insert_after(mobile_button)
 
     # Role / Team / Duration (3 .project-details paragraphs inside .content-wrapper.is-project-details)
     details_wrapper = soup.select_one(".content-wrapper.is-project-details")

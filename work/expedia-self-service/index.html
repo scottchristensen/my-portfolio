@@ -148,10 +148,18 @@
 }
 .w-richtext figure.rich-media-figure.is-iframe-landscape iframe { aspect-ratio: 16 / 9; height: auto; }
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
-/* The SendSight demo shows its own "best on desktop" message on phones, which
-   a 16:9 box at phone width would crop. */
-@media (max-width: 767px) {
-  .w-richtext figure.rich-media-figure iframe[src*="app.sendsight.ai"] { aspect-ratio: auto; height: 26rem; }
+/* The SendSight demo only works on desktop, so phones and tablets get a
+   homepage visual and a link out instead. */
+.w-richtext figure.rich-media-figure .sendsight-demo-mobile { display: none; }
+@media (min-width: 992px) {
+  a.button.sendsight-cta-mobile { display: none !important; }
+}
+@media (max-width: 991px) {
+  .w-richtext figure.rich-media-figure iframe[src*="app.sendsight.ai"],
+  .w-richtext figure.rich-media-figure .sendsight-demo-desktop,
+  a.button.sendsight-cta-desktop { display: none !important; }
+  .w-richtext figure.rich-media-figure img.sendsight-demo-mobile { display: block; width: 100%; height: auto; }
+  .w-richtext figure.rich-media-figure span.sendsight-demo-mobile { display: inline; }
 }
 
 /* Click-to-load Figma embeds (css/figma-embeds.css): the iframe is injected on
