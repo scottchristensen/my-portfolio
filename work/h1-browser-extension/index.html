@@ -148,6 +148,11 @@
 }
 .w-richtext figure.rich-media-figure.is-iframe-landscape iframe { aspect-ratio: 16 / 9; height: auto; }
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
+/* The SendSight demo shows its own "best on desktop" message on phones, which
+   a 16:9 box at phone width would crop. */
+@media (max-width: 767px) {
+  .w-richtext figure.rich-media-figure iframe[src*="app.sendsight.ai"] { aspect-ratio: auto; height: 26rem; }
+}
 
 /* Click-to-load Figma embeds (css/figma-embeds.css): the iframe is injected on
    click and must fill the facade box, not use the generic iframe sizing above. */
@@ -310,9 +315,11 @@ main:focus-visible {
 <a class="navigation-link w-inline-block" href="../../index.html#work">
 <h3 class="text-size-regular text-weight-medium">Work</h3>
 </a>
-<a class="navigation-link advisory w-inline-block" href="../../advisory.html">
-<h3 class="text-size-regular text-weight-medium advisory">Advisory</h3>
-</a>
+<!-- ADVISORY HIDDEN (un-comment to re-enable)
+                <a href="advisory.html" class="navigation-link advisory w-inline-block">
+                  <h3 class="text-size-regular text-weight-medium advisory">Advisory</h3>
+                </a>
+                -->
 <!-- COACHING REMOVED (un-comment to re-enable)
               <a href="coaching.html" class="navigation-link w-inline-block">
                   <h3 class="text-size-regular text-weight-medium">Coaching</h3>
@@ -413,7 +420,7 @@ main:focus-visible {
 <div class="margin-bottom margin-small">
 <h3 class="text-size-regular text-weight-medium">My role</h3>
 </div>
-<p class="text-size-regular text-style-wrap margin-0">Lead product designer<br/>PM (interim)</p>
+<p class="text-size-regular text-style-wrap margin-0">Head of Product Design<br/>PM (interim)</p>
 </div>
 <div class="project-details">
 <div class="margin-bottom margin-small">
@@ -449,7 +456,7 @@ main:focus-visible {
 <div class="content-wrapper" id="w-node-_8e7a808a-05f1-28fb-7746-2e79cb1c0a37-a59cf88f">
 <h2>Background</h2>
 <div class="padding-top padding-medium"></div>
-<div class="text-rich-text w-richtext"><p id="">H1 was hyper-scaling after the Series B fundraise, and the Board wanted to invest in creating adjacent products. Consequently, H1's strategy team identified adjacent markets to compete in with new products. Foremost, was to compete with Doximity, the 'LinkedIn for doctors.'</p><p id="">Specifically, the team thought to create a public-facing "Doctor Network" -- like Yelp and Zillow where public information is claimed and enriched by verified owners. This user-generated data was a big bet intended to create a data moat against our competitors.</p><h3 id="">Getting started</h3><p id="">As lead designer, I was excited to help spin up prototypes and validate this new product in the market -- a true zero-to-one experience. </p><p id=""><strong id="">Team goals</strong> were as follows:</p><ol id="" start=""><li id=""><strong id="">Discover</strong> - Perform 20+ customer discovery interviews</li><li id=""><strong id="">Build</strong> - Rapidly design prototype and marketing landing page</li><li id=""><strong id="">Launch</strong> - Launch and promote via organic/inorganic channels</li><li id=""><strong id="">Test</strong> - Test iterative improvements/ideas to see what increases conversion</li></ol></div>
+<div class="text-rich-text w-richtext"><p id="">H1 was hyper-scaling after the Series B fundraise, and the Board wanted to invest in creating adjacent products. Consequently, H1's strategy team identified adjacent markets to compete in with new products. Foremost, was to compete with Doximity, the 'LinkedIn for doctors.'</p><p id="">Specifically, the team thought to create a public-facing "Doctor Network" -- like Yelp and Zillow where public information is claimed and enriched by verified owners. This user-generated data was a big bet intended to create a data moat against our competitors.</p><h3 id="">Getting started</h3><p id="">As head of product design, I was excited to help spin up prototypes and validate this new product in the market -- a true zero-to-one experience. </p><p id=""><strong id="">Team goals</strong> were as follows:</p><ol id="" start=""><li id=""><strong id="">Discover</strong> - Perform 20+ customer discovery interviews</li><li id=""><strong id="">Build</strong> - Rapidly design prototype and marketing landing page</li><li id=""><strong id="">Launch</strong> - Launch and promote via organic/inorganic channels</li><li id=""><strong id="">Test</strong> - Test iterative improvements/ideas to see what increases conversion</li></ol></div>
 </div>
 </div>
 </div>
@@ -515,7 +522,7 @@ main:focus-visible {
 </div>
 <div class="content-wrapper" id="w-node-_141f5c11-7ee0-5860-e542-1382da397613-1d954aa0">
 <div class="margin-bottom margin-xlarge">
-<h3 class="max-width-medium">I’m Scott, a growth design leader, founder, and advisor based in SLC.</h3>
+<h3 class="max-width-medium">I’m Scott, a growth design leader and founder based in SLC.</h3>
 </div>
 <div class="margin-bottom margin-huge">
 <a class="button w-button" href="mailto:scott.charles.christensen@gmail.com?subject=%F0%9F%91%8B%20Hello!">Let's chat →</a>

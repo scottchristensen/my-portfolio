@@ -148,6 +148,11 @@
 }
 .w-richtext figure.rich-media-figure.is-iframe-landscape iframe { aspect-ratio: 16 / 9; height: auto; }
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
+/* The SendSight demo shows its own "best on desktop" message on phones, which
+   a 16:9 box at phone width would crop. */
+@media (max-width: 767px) {
+  .w-richtext figure.rich-media-figure iframe[src*="app.sendsight.ai"] { aspect-ratio: auto; height: 26rem; }
+}
 
 /* Click-to-load Figma embeds (css/figma-embeds.css): the iframe is injected on
    click and must fill the facade box, not use the generic iframe sizing above. */
@@ -310,9 +315,11 @@ main:focus-visible {
 <a class="navigation-link w-inline-block" href="../../index.html#work">
 <h3 class="text-size-regular text-weight-medium">Work</h3>
 </a>
-<a class="navigation-link advisory w-inline-block" href="../../advisory.html">
-<h3 class="text-size-regular text-weight-medium advisory">Advisory</h3>
-</a>
+<!-- ADVISORY HIDDEN (un-comment to re-enable)
+                <a href="advisory.html" class="navigation-link advisory w-inline-block">
+                  <h3 class="text-size-regular text-weight-medium advisory">Advisory</h3>
+                </a>
+                -->
 <!-- COACHING REMOVED (un-comment to re-enable)
               <a href="coaching.html" class="navigation-link w-inline-block">
                   <h3 class="text-size-regular text-weight-medium">Coaching</h3>
@@ -413,7 +420,7 @@ main:focus-visible {
 <div class="margin-bottom margin-small">
 <h3 class="text-size-regular text-weight-medium">My role</h3>
 </div>
-<p class="text-size-regular text-style-wrap margin-0">Head of Design (player coach role)</p>
+<p class="text-size-regular text-style-wrap margin-0">Head of Product Design (player coach role)</p>
 </div>
 <div class="project-details">
 <div class="margin-bottom margin-small">
@@ -515,7 +522,7 @@ main:focus-visible {
 </div>
 <div class="content-wrapper" id="w-node-_141f5c11-7ee0-5860-e542-1382da397613-1d954aa0">
 <div class="margin-bottom margin-xlarge">
-<h3 class="max-width-medium">I’m Scott, a growth design leader, founder, and advisor based in SLC.</h3>
+<h3 class="max-width-medium">I’m Scott, a growth design leader and founder based in SLC.</h3>
 </div>
 <div class="margin-bottom margin-huge">
 <a class="button w-button" href="mailto:scott.charles.christensen@gmail.com?subject=%F0%9F%91%8B%20Hello!">Let's chat →</a>

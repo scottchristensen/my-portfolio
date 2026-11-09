@@ -18,6 +18,15 @@
   ],
   "headers": [
     {
+      "source": "/advisory(\\.html|\\.md)?",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/(.*)\\.md",
       "headers": [
         {

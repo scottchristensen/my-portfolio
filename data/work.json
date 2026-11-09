@@ -2,6 +2,12 @@
   "featured": [],
   "grid": [
     {
+      "slug": "sendsight",
+      "title": "SendSight",
+      "subtitle": "Making lifecycle programs visible",
+      "image": "images/work/sendsight-hero.png"
+    },
+    {
       "slug": "mercury-focused-funding",
       "title": "Mercury Focused Funding",
       "subtitle": "Adding friction lifted Day 30 deposits 7%",
@@ -12,12 +18,6 @@
       "title": "Mercury Viral Upsell",
       "subtitle": "Layered education lifted new accounts 6%",
       "image": "images/work/Mercury Grid Card case study 2.png"
-    },
-    {
-      "slug": "h1-browser-extension",
-      "title": "H1 Extension",
-      "subtitle": "Validated, launched, iterated",
-      "image": "images/work/h1-browser-extension__grid__Grid-Image---H1-Extension.png"
     },
     {
       "slug": "mystery-onboarding",

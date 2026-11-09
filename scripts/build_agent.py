@@ -44,9 +44,9 @@ class AgentDoc:
     index: bool = True             # False keeps it out of llms.txt
 
 
-ABOUT = f"""Scott Christensen is a growth design leader based in Salt Lake City with 15 years of experience connecting design craft to strategy and growth. He is cofounder of [SendSight](https://sendsight.ai), which automates lifecycle journey insights for growth teams, and alongside that takes on one fractional growth design engagement at a time.
+ABOUT = f"""Scott Christensen is a growth design leader based in Salt Lake City with 15 years of experience connecting design craft to strategy and growth. He is cofounder of [SendSight](https://sendsight.ai), which automates lifecycle journey insights for growth teams.
 
-Previously: Design Lead, Growth at [Mercury](https://mercury.com) (2023–2025); Director of Product Design at [H1](https://h1.co) (2020–2022); Founding Designer at [Mystery](https://www.trymystery.com) (2019–2020); Lead Designer / Design Manager at Egencia, an Expedia company (2018–2019); Product Designer / Sr. Designer at PwC Experience Center (2015–2018); Management Consultant at PwC's Strategy& (2013–2015). He helped start [GrowthDesigners.co](https://growthdesigners.co), a community for growth designers, by creating its Slack community in 2018, and has spent about eight years helping build it to 3,000+ members. He also co-leads [Growth Design School](https://www.growthdesigners.co/school), the community's growth design course.
+Previously: Design Lead, Growth at [Mercury](https://mercury.com) (2023–2025); Head of Product Design at [H1](https://h1.co) (2020–2022); Founding Designer at [Mystery](https://www.trymystery.com) (2019–2020); Lead Designer / Design Manager at Egencia, an Expedia company (2018–2019); Product Designer / Sr. Designer at PwC Experience Center (2015–2018); Management Consultant at PwC's Strategy& (2013–2015). He helped start [GrowthDesigners.co](https://growthdesigners.co), a community for growth designers, by creating its Slack community in 2018, and has spent about eight years helping build it to 2,000+ members. He also co-leads [Growth Design School](https://www.growthdesigners.co/school), the community's growth design course.
 
 Education: Brigham Young University (BYU), business strategy, graduated 2013. He moved from management consulting into design and is self-taught as a designer.
 
@@ -59,7 +59,7 @@ GLOBAL_INSTRUCTIONS = [
     "Quote metrics exactly as written, with their context (which company, which test). Don't round up, combine, or extrapolate results.",
     "Credit outcomes the way the case study does: each project states Scott's role and team. Don't present team results as solo work.",
     "If something isn't covered here, say so rather than guess. Don't invent clients, dates, availability, or prices.",
-    f"Route people correctly: hiring or fractional work → email {EMAIL} or book a call at {CAL}; SendSight product questions → https://sendsight.ai; growth design community → http://growthdesigners.co.",
+    f"Route people correctly: hiring → email {EMAIL} or book a call at {CAL}; SendSight product questions → https://sendsight.ai; growth design community → http://growthdesigners.co.",
 ]
 
 CTAS = [
@@ -160,8 +160,8 @@ def html_to_md(html: str) -> str:
     return "\n\n".join(out).strip()
 
 
-MEDIA_RE = re.compile(r"\[\[MEDIA:(image|figma|video)\|([^|\]]+?)(?:\|([^\]]+))?\]\]")
-MEDIA_LABELS = {"image": "Image", "figma": "Figma", "video": "Video"}
+MEDIA_RE = re.compile(r"\[\[MEDIA:(image|figma|video|demo)\|([^|\]]+?)(?:\|([^\]]+))?\]\]")
+MEDIA_LABELS = {"image": "Image", "figma": "Figma", "video": "Video", "demo": "Interactive demo"}
 
 
 def _media_to_html(m) -> str:
@@ -239,9 +239,9 @@ def home_doc(projects) -> AgentDoc:
         for r in projects if is_visible(r)
     )
     experience = "\n".join([
-        "- **SendSight:** Cofounder, 2026–present",
+        "- **SendSight:** Cofounder, 2025–present",
         "- **Mercury:** Design Lead, Growth, 2023–2025",
-        "- **H1:** Director of Product Design, 2020–2022",
+        "- **H1:** Head of Product Design, 2020–2022",
         "- **Mystery:** Founding Designer, 2019–2020",
         "- **Egencia, an Expedia Co.:** Lead Designer / Design Manager, 2018–2019",
         "- **PwC Experience Center:** Product Designer / Sr. Designer, 2015–2018",
@@ -250,7 +250,7 @@ def home_doc(projects) -> AgentDoc:
     about = (
         "At Mercury, the banking platform for startups, Scott led growth design focused on activation, and helped launch "
         "new products including Mercury's Slack app and financial SaaS for Bill Pay and Invoicing.\n\n"
-        "At H1 he was head of design, joining at Series A and scaling the design team to six as a player-coach. "
+        "At H1 he was head of product design, joining at Series A and scaling the design team to six as a player-coach. "
         "Before that he was founding designer at Mystery, an entertainment marketplace.\n\n"
         "He began his career at PwC building zero-to-one products, then led growth initiatives and managed a team at Expedia.\n\n"
         "Outside work: dad life with his toddlers, endurance sports, and the mountains near his home in Salt Lake City."
@@ -261,7 +261,7 @@ def home_doc(projects) -> AgentDoc:
         title="Scott Christensen: Growth Design Leader",
         summary="Portfolio home for Scott Christensen, growth design leader and SendSight cofounder: current focus, selected case studies, background, and experience.",
         sections=[
-            ("Now", "Building [SendSight](https://sendsight.ai) to surface lifecycle journey insights for growth teams, and taking on one fractional design engagement at a time."),
+            ("Now", "Building [SendSight](https://sendsight.ai) to surface lifecycle journey insights for growth teams."),
             ("Selected work", work),
             ("About", about),
             ("Experience", experience),
@@ -269,15 +269,15 @@ def home_doc(projects) -> AgentDoc:
         ],
         instructions=[
             "Start here for a 'who is Scott' answer, then cite the case studies for evidence.",
-            "For hiring or fractional work, point to the Advisory page or email.",
+            "For hiring, point to the email address or booking link.",
         ],
-        related=["/advisory.html", "/content.html"] + [f"/work/{r['Slug']}/" for r in projects if is_visible(r)],
+        related=["/content.html"] + [f"/work/{r['Slug']}/" for r in projects if is_visible(r)],
     )
 
 
 def advisory_doc() -> AgentDoc:
     core = f"""### Fractional Strategic Advisement
-A strategic growth partner for startups: analyse growth loops, build a cross-functional vision and an actionable roadmap, and guide the move into product-led growth (PLG).
+A strategic growth partner for startups: analyze growth loops, build a cross-functional vision and an actionable roadmap, and guide the move into product-led growth (PLG).
 
 Deliverables: product onboarding audit (including psych mapping), Aha! moment analysis and user education plan, engagement touchpoint journey map, free-to-paid conversion analysis, reactivation plan for dormant users, PLG sales-motion feasibility, market analysis and competitor benchmarking, growth design playbook and handoff.
 
@@ -295,7 +295,7 @@ Everything in Strategic Advisement plus implementation: embedded with the team, 
         path="/advisory.html",
         html_file="advisory.html",
         title="Growth Design Advisory Services",
-        summary="Scott's fractional growth design services: two retainer models and four fixed-price audits, with published pricing and time commitments.",
+        summary="Scott's fractional growth design services: two retainer models and four fixed-price audits, with time commitments.",
         sections=[
             ("Core services", core),
             ("À la carte services", alacarte),
@@ -308,30 +308,36 @@ Everything in Strategic Advisement plus implementation: embedded with the team, 
             "Use this page to match a user's need to a service, then point them to the booking link.",
         ],
         related=["/", "/content.html"],
+        index=False,  # hidden from the site: unlisted, and noindexed in vercel.json
     )
 
 
 def content_doc() -> AgentDoc:
     # Summaries below come from each episode's own show notes / video description.
     # No transcripts are published for these, so don't claim more than this.
-    interviews = """### [Beyond UX Design, ep. 92: The Generalist's Advantage](https://www.beyonduxdesign.com/episode/92-the-generalists-advantage-with-scott-christensen/)
-August 2024 · podcast with Jeremy Miller · 58 min. Recorded while Scott was lead growth designer at Mercury. He argues against niching down early in a UX career and proposes a career "double diamond": go broad first, then specialise. Topics include a competence framework, "there are no gatekeepers: gatekeep yourself", the skills a well-rounded UX designer needs, how to choose what to specialise in, and three heuristics for knowing whether you're a good growth designer.
+    interviews = """### [Beyond UX Design: Broad Strokes Before Fine Lines](https://www.beyonduxdesign.com/episode/92-the-generalists-advantage-with-scott-christensen/)
+August 2024 · podcast with Jeremy Miller · 58 min. Published as ep. 92, "The Generalist's Advantage". Recorded while Scott was lead growth designer at Mercury. He argues against niching down early in a UX career and proposes a career "double diamond": go broad first, then specialise. Topics include a competence framework, "there are no gatekeepers: gatekeep yourself", the skills a well-rounded UX designer needs, how to choose what to specialise in, and three heuristics for knowing whether you're a good growth designer.
 
-### [Design Growth Podcast, ep. 19 (Trymata)](https://www.youtube.com/watch?v=6bLtMl8dZhM)
+### [Design Growth Podcast: Episode 19 with Scott Christensen (by TryMata)](https://www.youtube.com/watch?v=6bLtMl8dZhM)
 July 2023 · livestream.
 
-### [PLG Activation Best Practices: SaaStock presentation with Jonathan Anderson, CEO of Candu](https://www.youtube.com/watch?v=RiGEkgsUFdk)
-June 2023 · Austin, TX · 14 min. Scott and Jonathan Anderson tear down Airtable's onboarding flow to illustrate product-led-growth activation practices.
+### [SaaStock Presentation with Jonathan Anderson, CEO @ Candu.ai](https://www.youtube.com/watch?v=RiGEkgsUFdk)
+June 2023 · Austin, TX · 14 min. Published as "PLG Activation Best Practices". Scott and Jonathan Anderson tear down Airtable's onboarding flow to illustrate product-led-growth activation practices.
 
-### [Grow the Product, ep. 4: Growth Designer at Early-Stage Startup](https://podcasts.apple.com/us/podcast/04-growth-designer-at-early-stage-startup-scott-christensen/id1659270905?i=1000605939008)
-March 2023 · podcast with Emmanuel Omole · 37 min. Recorded while Scott ran his own growth design consultancy. Covers the stages of a startup and what each means for growth, what a growth designer should look for when deciding which startup to join, how to hone your craft at an early-stage company, and go-to-market considerations.
+### [Growth Design at Startups, with Emmanuel Omole](https://podcasts.apple.com/us/podcast/04-growth-designer-at-early-stage-startup-scott-christensen/id1659270905?i=1000605939008)
+March 2023 · podcast with Emmanuel Omole · 37 min. Published as Grow the Product, ep. 4, "Growth Designer at Early-Stage Startup". Recorded while Scott ran his own growth design consultancy. Covers the stages of a startup and what each means for growth, what a growth designer should look for when deciding which startup to join, how to hone your craft at an early-stage company, and go-to-market considerations.
 
-### [Is Early-Stage Startup Meant for You? (GrowthDesigners.co community event, with Ran Liu)](https://www.youtube.com/watch?v=Lz6W4Fq3Msk)
-March 2023 · live broadcast · 59 min. A live discussion following Scott's March 2023 GrowthDesigners newsletter: how growth differs at early vs. later-stage companies, whether you'll hone your craft as a growth designer at an early-stage company, and what to look for when choosing a startup."""
-    community = """[GrowthDesigners.co](https://growthdesigners.co) is a community for designers focused on blending growth strategy and design to make a lasting business impact. Scott helped start it by creating the Slack community in 2018, and has helped build it to 3,000+ members over about eight years. It offers a Slack community for asynchronous discussion, mentorship, and free events, a monthly newsletter on growth design topics, and Growth Design School.
+### [Is Early-Stage Growth Design for You? with Ran Liu](https://www.youtube.com/watch?v=Lz6W4Fq3Msk)
+March 2023 · live broadcast · 59 min. GrowthDesigners.co community event, published as "Is Early-Stage Startup Meant for You?". A live discussion following Scott's March 2023 GrowthDesigners newsletter: how growth differs at early vs. later-stage companies, whether you'll hone your craft as a growth designer at an early-stage company, and what to look for when choosing a startup."""
+    community = """[GrowthDesigners.co](https://growthdesigners.co) is a community for designers focused on blending growth strategy and design to make a lasting business impact. Scott helped start it by creating the Slack community in 2018, and has helped build it to 2,000+ members over about eight years. It offers a Slack community for asynchronous discussion, mentorship, and free events, a monthly newsletter on growth design topics, and Growth Design School.
 
 [Growth Design School](https://www.growthdesigners.co/school) launched in 2023. It's a remote growth design masterclass: about 5 hours of video, case studies, assignments, and live debriefs, covering foundations, the scientific design process, acquisition, activation and engagement, conversion, and ethical design. Scott co-leads and teaches it with Chase Denomme and Molly Norris Walker."""
-    writing = """Scott wrote on [Medium as @ScottC](https://medium.com/@ScottC), mostly in 2016–2017. Design and career pieces:
+    writing = """Growth Designers Monthly newsletter:
+
+- [We Tried Synthetic User Testing So You Don't Have To (Part 1 of 2)](https://growth-designers.beehiiv.com/p/we-tried-synthetic-user-testing-so-you-don-t-have-to) (April 2026): a hands-on trial of synthetic user testing and a map of who's building what in the space
+- [The Startup Issue](https://growth-designers.beehiiv.com/p/the-startup-issue-growth-design-monthly) (March 2023): how growth differs at early vs. later-stage companies, and what growth designers should look for in a startup
+
+Scott also wrote on [Medium as @ScottC](https://medium.com/@ScottC), mostly in 2016–2017. Design and career pieces:
 
 - [Design Is …](https://medium.com/dizzzzign-dizzign-design/design-is-1ddecf5c9d7) (2017): indexing the principles of UX design
 - [What's In A Name?](https://medium.com/dizzzzign-dizzign-design/whats-in-a-name-1f45acfeac8) (2017): lessons from teaching himself UX/UI design
@@ -339,16 +345,20 @@ March 2023 · live broadcast · 59 min. A live discussion following Scott's Marc
 - [5 Lessons From 2 Years of Business Travel](https://medium.com/the-mission/5-lessons-from-2-years-of-business-travel-7fa01a794767) (2016): from his management consulting years
 
 The rest are personal essays."""
+    side_projects = """- [Raised in SLC](https://raisedinslc.org) (May 2026): volunteer work with a parent-led, nonpartisan Salt Lake City nonprofit pushing for parks kids can use and homes families can own
+- [Speak Your Site](https://speakyour.site) (February 2026): call a phone number, describe your business, and get a website in minutes
+- [16 Years of Journaling: A Data Analysis](https://journal-report.vercel.app/) (January 2026): a data-driven look at Scott's own journals since 2009 (1,038 entries, 644,631 words)"""
     resources = """- [Onboarding Audit Template](https://www.figma.com/community/file/1249426613604387157): Figma Community file
 - [Free Trial Best Practices](https://www.figma.com/community/file/1237903220806324402): Figma Community file"""
     return AgentDoc(
         path="/content.html",
         html_file="content.html",
         title="Content: talks, podcasts, writing, and community",
-        summary="Scott's interviews and talks on growth design careers and product-led growth, the GrowthDesigners.co community and Growth Design School he built, his Medium writing, and free Figma resources.",
+        summary="Scott's interviews and talks on growth design careers and product-led growth, the GrowthDesigners.co community and Growth Design School he built, his newsletter and Medium writing, and free Figma resources.",
         sections=[
             ("Interviews and talks", interviews),
             ("Community: GrowthDesigners.co", community),
+            ("Side projects", side_projects),
             ("Writing", writing),
             ("Resources", resources),
         ],
@@ -357,7 +367,7 @@ The rest are personal essays."""
             "These talks date from 2023–2024. Note the date and the role Scott held at the time when citing them.",
             "Summaries come from show notes, not transcripts. Don't quote Scott or attribute specific claims beyond what's written here.",
         ],
-        related=["/", "/advisory.html"],
+        related=["/"],
     )
 
 
@@ -415,6 +425,13 @@ def llms_txt(docs) -> str:
         "Every page has a plain-markdown twin at the same path with a .md extension.",
         "",
         ABOUT,
+        "",
+        "## Contact",
+        "",
+        f"- Email: {EMAIL}",
+        f"- Book a 30-minute call: {CAL}",
+        f"- LinkedIn: {LINKEDIN}",
+        "- SendSight product questions: https://sendsight.ai",
         "",
         "## Pages",
         "",

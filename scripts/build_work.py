@@ -56,7 +56,11 @@ FIGMA_MERCURY_VIRAL_SUCCESS_ALTS = """<iframe style="border:1px solid rgba(0,0,0
 
 FIGMA_MERCURY_FF_MODAL_EXPLORATIONS = """<iframe style="border:1px solid rgba(0,0,0,0.1);max-width:100%;" width="800" height="450" src="https://embed.figma.com/design/q5W8eWBweQ5HHK8cp8BeTy/Focused-Funding?node-id=2025-104647&embed-host=share" loading="lazy" allowfullscreen></iframe>"""
 
+SENDSIGHT_DEMO = '<iframe src="https://app.sendsight.ai/demo" title="SendSight interactive demo" loading="lazy" allow="clipboard-write"></iframe>'
+
 MEDIA_RESOLUTIONS = {
+    # ---- SendSight ----
+    "SendSight interactive demo": {"embed": SENDSIGHT_DEMO, "aspect": "landscape", "caption": "The real product, with demo data. Click around."},
     # ---- Mystery Onboarding ----
     "Mystery promo": {"embed": VIMEO_MYSTERY, "responsive": True},
     "Onboarding flow (Figma)": {"embed": FIGMA_MYSTERY_FILE, "aspect": "landscape", "poster": "mystery-onboarding-flow"},
@@ -170,7 +174,7 @@ SIBLING_PAGES = ("advisory.html", "coaching.html", "content.html",
 # via scripts/inject_media_markers.py. They render as visible placeholder cards where
 # screenshots/embeds need to be re-uploaded.
 
-MEDIA_MARKER_RE = re.compile(r"\[\[MEDIA:(image|figma|video)\|([^|\]]+?)(?:\|([^\]]+))?\]\]")
+MEDIA_MARKER_RE = re.compile(r"\[\[MEDIA:(image|figma|video|demo)\|([^|\]]+?)(?:\|([^\]]+))?\]\]")
 
 # Legacy aggregated manifest, no longer rendered, kept here only for reference.
 MEDIA_MANIFEST = {
@@ -286,6 +290,11 @@ PLACEHOLDER_STYLE = """
 }
 .w-richtext figure.rich-media-figure.is-iframe-landscape iframe { aspect-ratio: 16 / 9; height: auto; }
 .w-richtext figure.rich-media-figure.is-iframe-square iframe { aspect-ratio: 1 / 1; height: auto; }
+/* The SendSight demo shows its own "best on desktop" message on phones, which
+   a 16:9 box at phone width would crop. */
+@media (max-width: 767px) {
+  .w-richtext figure.rich-media-figure iframe[src*="app.sendsight.ai"] { aspect-ratio: auto; height: 26rem; }
+}
 
 /* Click-to-load Figma embeds (css/figma-embeds.css): the iframe is injected on
    click and must fill the facade box, not use the generic iframe sizing above. */
